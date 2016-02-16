@@ -1,14 +1,24 @@
 package com.example.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Crime implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private double latitude;
     private double longitude;
     private Category category;
     private Date date;
+
+    public Crime() {
+    }
 
     public Crime(long id) {
         this.id = id;

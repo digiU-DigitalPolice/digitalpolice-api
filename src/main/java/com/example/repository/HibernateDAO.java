@@ -1,10 +1,13 @@
 package com.example.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Repository
 public abstract class HibernateDAO<O,K extends Serializable> implements GenericDAO<O,K> {
 
     private Class<O> type;
