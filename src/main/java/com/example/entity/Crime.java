@@ -11,8 +11,7 @@ public class Crime implements Serializable{
     private long id;
     private double latitude;
     private double longitude;
-    @ManyToOne
-    @JoinColumn(name="category")
+    @OneToOne
     private Category category;
     private Date date;
 
