@@ -27,7 +27,7 @@ public class MapController {
     }
 
     @RequestMapping("/map")
-    public List<Crime> map(Filter filter){
-        return new ArrayList<>();
+    public List<Crime> filterCrimes(Filter filter){
+        return mapService.filterCrimes(filter);
     }
 }
