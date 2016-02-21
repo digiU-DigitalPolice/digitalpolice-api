@@ -8,7 +8,7 @@ public class Region implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
+    @OneToOne(optional = true)
     private Region parent;
     private String name;
     private String koatuu;

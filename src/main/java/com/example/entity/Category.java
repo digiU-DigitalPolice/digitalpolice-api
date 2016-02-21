@@ -8,7 +8,7 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
+    @OneToOne(optional = true)
     private Category parent;
     private String locale;
     private long position;
