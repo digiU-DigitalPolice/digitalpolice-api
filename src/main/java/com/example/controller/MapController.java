@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class HomeController {
+public class MapController {
 
     private MapService mapService;
 
     @Autowired
-    public HomeController(MapService mapService) {
+    public MapController(MapService mapService) {
         this.mapService = mapService;
     }
 

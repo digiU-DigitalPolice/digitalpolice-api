@@ -13,6 +13,8 @@ public class Crime implements Serializable{
     private double longitude;
     @OneToOne
     private Category category;
+    @OneToOne
+    private Region region;
     private Date date;
 
     public Crime() {
@@ -22,12 +24,20 @@ public class Crime implements Serializable{
         this.id = id;
     }
 
-    public Crime(long id, float latitude, float longitude, Category category, Date date) {
-        this.id = id;
+    public Crime(double latitude, double longitude, Category category, Region region, Date date) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.category = category;
+        this.region = region;
         this.date = date;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public long getId() {

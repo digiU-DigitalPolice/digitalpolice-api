@@ -24,7 +24,7 @@ public abstract class HibernateDAO<O,K extends Serializable> implements GenericD
         type = (Class) pt.getActualTypeArguments()[0];
     }
 
-    private Session getSession(){
+    protected Session getSession(){
         return sessionFactory.getCurrentSession();
     }
 
