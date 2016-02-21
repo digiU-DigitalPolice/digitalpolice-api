@@ -1,42 +1,26 @@
 package com.example.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Category implements Serializable{
+public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long parent_id;
+    @OneToOne
+    private Category parent;
     private String locale;
-    private long category_position;
-    private String category_title;
-    private String category_description;
-    private String category_color;
-    private String category_image;
-    private String category_image_thumb;
-    private boolean category_visible;
-    private boolean category_trusted;
+    private long position;
+    private String title;
+    private String description;
+    private String color;
+    private String image;
+    private String imageThumb;
+    private boolean visible;
+    private boolean trusted;
 
     public Category() {
-    }
-
-    public Category(long id, long parent_id, String locale, long category_position, String category_title, String category_description, String category_color, String category_image, String category_image_thumb, boolean category_visible, boolean category_trusted) {
-        this.id = id;
-        this.parent_id = parent_id;
-        this.locale = locale;
-        this.category_position = category_position;
-        this.category_title = category_title;
-        this.category_description = category_description;
-        this.category_color = category_color;
-        this.category_image = category_image;
-        this.category_image_thumb = category_image_thumb;
-        this.category_visible = category_visible;
-        this.category_trusted = category_trusted;
     }
 
     public long getId() {
@@ -47,12 +31,12 @@ public class Category implements Serializable{
         this.id = id;
     }
 
-    public long getParent_id() {
-        return parent_id;
+    public Category getParent() {
+        return parent;
     }
 
-    public void setParent_id(long parent_id) {
-        this.parent_id = parent_id;
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
     public String getLocale() {
@@ -63,67 +47,67 @@ public class Category implements Serializable{
         this.locale = locale;
     }
 
-    public long getCategory_position() {
-        return category_position;
+    public long getPosition() {
+        return position;
     }
 
-    public void setCategory_position(long category_position) {
-        this.category_position = category_position;
+    public void setPosition(long position) {
+        this.position = position;
     }
 
-    public String getCategory_title() {
-        return category_title;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCategory_title(String category_title) {
-        this.category_title = category_title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getCategory_description() {
-        return category_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory_description(String category_description) {
-        this.category_description = category_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getCategory_color() {
-        return category_color;
+    public String getColor() {
+        return color;
     }
 
-    public void setCategory_color(String category_color) {
-        this.category_color = category_color;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public String getCategory_image() {
-        return category_image;
+    public String getImage() {
+        return image;
     }
 
-    public void setCategory_image(String category_image) {
-        this.category_image = category_image;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getCategory_image_thumb() {
-        return category_image_thumb;
+    public String getImageThumb() {
+        return imageThumb;
     }
 
-    public void setCategory_image_thumb(String category_image_thumb) {
-        this.category_image_thumb = category_image_thumb;
+    public void setImageThumb(String imageThumb) {
+        this.imageThumb = imageThumb;
     }
 
-    public boolean isCategory_visible() {
-        return category_visible;
+    public boolean isVisible() {
+        return visible;
     }
 
-    public void setCategory_visible(boolean category_visible) {
-        this.category_visible = category_visible;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
-    public boolean isCategory_trusted() {
-        return category_trusted;
+    public boolean isTrusted() {
+        return trusted;
     }
 
-    public void setCategory_trusted(boolean category_trusted) {
-        this.category_trusted = category_trusted;
+    public void setTrusted(boolean trusted) {
+        this.trusted = trusted;
     }
 }

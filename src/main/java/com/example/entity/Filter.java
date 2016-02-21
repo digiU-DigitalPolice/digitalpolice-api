@@ -10,8 +10,8 @@ public class Filter implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-//    @OneToMany
-//    private List<Long> regions;
+    @ElementCollection(targetClass=Long.class)
+    private List<Long> regions;
     @OneToMany
     private List<Category> categories;
     private Date dateFrom;
@@ -29,13 +29,13 @@ public class Filter implements Serializable{
         this.id = id;
     }
 
-//    public List<Long> getRegions() {
-//        return regions;
-//    }
-//
-//    public void setRegions(List<Long> regions) {
-//        this.regions = regions;
-//    }
+    public List<Long> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<Long> regions) {
+        this.regions = regions;
+    }
 
     public List<Category> getCategories() {
         return categories;
