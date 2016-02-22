@@ -12,8 +12,8 @@ public class Filter implements Serializable{
     private long id;
     @ElementCollection(targetClass=Long.class)
     private List<Long> regions;
-    @OneToMany
-    private List<Category> categories;
+    @ElementCollection(targetClass=Long.class)
+    private List<Long> categories;
     private Date dateFrom;
     private Date dateTo;
     private int zoom;
@@ -37,11 +37,11 @@ public class Filter implements Serializable{
         this.regions = regions;
     }
 
-    public List<Category> getCategories() {
+    public List<Long> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(List<Long> categories) {
         this.categories = categories;
     }
 
