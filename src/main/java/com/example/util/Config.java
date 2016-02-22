@@ -29,15 +29,7 @@ public class Config {
     public void reloadConfiguration() {
         props = new Properties();
         try {
-            // Check if runs as jar or in IDE
-            if(Config.class.getResource("").getPath().contains(".jar!/")){
-                String filePath = Config.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-                filePath = filePath.substring(0, filePath.lastIndexOf("/") + 1);
-                filePath = URLDecoder.decode(filePath, "UTF-8");
-                props.load(new FileInputStream(new File(filePath+PROPERTIES)));
-            }else{
-                props.load(Config.class.getResourceAsStream("/"+PROPERTIES));
-            }
+            props.load(Config.class.getResourceAsStream("/"+PROPERTIES));
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
