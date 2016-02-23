@@ -28,7 +28,7 @@ public class CrimeToCrimeDtoConverterTest {
 
         CrimeListDTO.CrimeDTO crimeDTO = crimeListDTO.getFeatures().get(0);
         assertNotNull(crimeDTO.getGeometry());
-        assertArrayEquals(new double[]{-1.23, 4.56}, crimeDTO.getGeometry().getCoordinates(), 0.0);
+        assertArrayEquals(new double[]{4.56, -1.23}, crimeDTO.getGeometry().getCoordinates(), 0.0);
 
         assertNotNull(crimeDTO.getProperties());
         Map<String, Object> expectedProperties = new HashMap<String, Object>();

@@ -12,7 +12,7 @@ public class CrimeToCrimeDtoConverter implements Converter<List<Crime>, CrimeLis
         CrimeListDTO dtoList = new CrimeListDTO();
         for (Crime crime : crimeList) {
             CrimeListDTO.CrimeDTO dto = new CrimeListDTO().new CrimeDTO();
-            dto.setCoordinates(crime.getLatitude(), crime.getLongitude());
+            dto.setCoordinates(crime.getLongitude(), crime.getLatitude());
             dto.setId(crime.getId());
             dto.setDate(crime.getDate());
             dto.setCategoryId(crime.getCategory().getId());
