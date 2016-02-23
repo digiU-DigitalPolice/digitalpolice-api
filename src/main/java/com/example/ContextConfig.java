@@ -1,10 +1,14 @@
 package com.example;
 
+import com.example.converters.CrimeToCrimeDtoConverter;
 import com.example.util.Config;
 import org.hibernate.SessionFactory;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ConversionServiceFactoryBean;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -12,7 +16,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 @Configuration
 @EnableTransactionManagement
@@ -57,5 +63,20 @@ public class ContextConfig {
             return null;
         }
         return factory.getObject();
+    }
+
+    @Bean
+    public ConversionService conversionService(){
+        ConversionServiceFactoryBean bean = new ConversionServiceFactoryBean();
+        bean.setConverters( getConverters() );
+        bean.afterPropertiesSet();
+        ConversionService conversionService = bean.getObject();
+        return conversionService;
+    }
+
+    private Set<Converter<?, ?>> getConverters() {
+        Set<Converter<?, ?>> converters = new HashSet<Converter<?, ?>>();
+        converters.add( new CrimeToCrimeDtoConverter() );
+        return converters;
     }
 }
