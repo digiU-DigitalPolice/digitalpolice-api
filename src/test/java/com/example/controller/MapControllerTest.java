@@ -45,9 +45,6 @@ public class MapControllerTest {
     @InjectMocks
     private MapController mapController;
 
-    @Autowired
-    private WebApplicationContext wac;
-
     private MockMvc mockMvc;
 
     @Before
