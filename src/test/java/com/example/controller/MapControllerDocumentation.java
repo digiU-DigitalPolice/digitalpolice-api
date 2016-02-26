@@ -63,8 +63,8 @@ public class MapControllerDocumentation {
         this.mockMvc = MockMvcBuilders.standaloneSetup(mapController)
                 .apply(documentationConfiguration(this.restDocumentation).uris()
                         .withScheme("http")
-                        .withHost(Config.get().strValue("application.host"))
-                        .withPort(Config.get().intValue("application.port")))
+                        .withHost("162.211.230.155")
+                        .withPort(8080))
                 .build();
     }
 
