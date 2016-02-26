@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.CityPoliceApplication;
 import com.example.dto.CrimeListDTO;
 import com.example.service.MapService;
+import com.example.util.Config;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,7 +61,10 @@ public class MapControllerDocumentation {
         MockitoAnnotations.initMocks(this);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(mapController)
-                .apply(documentationConfiguration(this.restDocumentation))
+                .apply(documentationConfiguration(this.restDocumentation).uris()
+                        .withScheme("http")
+                        .withHost(Config.get().strValue("application.host"))
+                        .withPort(Config.get().intValue("application.port")))
                 .build();
     }
 
