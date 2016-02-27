@@ -55,7 +55,7 @@ public class ContextConfig {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setDataSource(dataSource());
         factory.setHibernateProperties(hibernateProperties());
-        factory.setPackagesToScan(new String[]{"com.example.entity"});
+        factory.setPackagesToScan(new String[]{"ua.in.zloch.entity"});
         try {
             factory.afterPropertiesSet();
         } catch (IOException e) {
