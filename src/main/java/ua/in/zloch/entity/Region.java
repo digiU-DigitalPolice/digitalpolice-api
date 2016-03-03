@@ -1,6 +1,11 @@
 package ua.in.zloch.entity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import ua.in.zloch.service.RegionService;
+
 import javax.persistence.*;
+import java.awt.geom.Path2D;
 import java.io.Serializable;
 
 @Entity
@@ -12,6 +17,7 @@ public class Region implements Serializable{
     private Region parent;
     private String name;
     private String koatuu;
+    @Column(name = "boundariesLong2", length = 30000)
     private String boundaries;
 
     public Region() {
@@ -55,5 +61,23 @@ public class Region implements Serializable{
 
     public void setBoundaries(String boundaries) {
         this.boundaries = boundaries;
+    }
+
+    public Path2D getPolygon() {
+        Path2D polygon = new Path2D.Double();
+        JSONObject pointsData = new JSONObject("{points:" + getBoundaries() + "}");
+        JSONArray pointsArray = pointsData.getJSONArray("points");
+        polygon.moveTo(
+                pointsArray.getJSONObject(0).getDouble("lat"),
+                pointsArray.getJSONObject(0).getDouble("lng")
+        );
+        for (int i = 1; i < pointsArray.length(); i++) {
+            polygon.lineTo(
+                    pointsArray.getJSONObject(i).getDouble("lat"),
+                    pointsArray.getJSONObject(i).getDouble("lng")
+            );
+        }
+
+        return polygon;
     }
 }

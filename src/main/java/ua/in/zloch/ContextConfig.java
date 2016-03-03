@@ -4,6 +4,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import ua.in.zloch.converters.CrimeToCrimeDtoConverter;
+import ua.in.zloch.converters.RegionToRegionDTOConverter;
 import ua.in.zloch.util.Config;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -89,6 +90,7 @@ public class ContextConfig {
     private Set<Converter<?, ?>> getConverters() {
         Set<Converter<?, ?>> converters = new HashSet<Converter<?, ?>>();
         converters.add( new CrimeToCrimeDtoConverter() );
+        converters.add( new RegionToRegionDTOConverter() );
         return converters;
     }
 }
