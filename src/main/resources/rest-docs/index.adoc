@@ -32,3 +32,50 @@ include::{snippets}/get-map/http-request.adoc[]
 Приклад HTTP відповіді:
 
 include::{snippets}/get-map/http-response.adoc[]
+
+[[список_районів]]
+=== Список районів
+
+Даний сервіс повертає список районів та їх меж, а також оновлює ці дані з локальних файлів, де повинні
+знаходитись координати меж районів. HTTP відповідь повертається у вигляді json.
+Список районів можна фільтрувати за id, іменем, кодом КОАТУУ, списком id.
+
+Приклад cURL запиту:
+
+include::{snippets}/regions/get-map/curl-request.adoc[]
+
+Параметри HTTP запиту:
+
+include::{snippets}/regions/get-map/request-parameters.adoc[]
+
+Приклад HTTP запиту:
+
+include::{snippets}/regions/get-map/http-request.adoc[]
+
+Приклад HTTP відповіді:
+
+include::{snippets}/regions/get-map/http-response.adoc[]
+
+[[список_районів]]
+=== Список районів
+
+Даний сервіс оновлює список районів та їх меж, з локальних файлів
+наприклад папка /src/main/resources/data/regions/
+Даний запит займає значну кількість часу, але він викликається адміністратором для
+оновлення інформації про район, в якому скоєно злочин
+
+Приклад cURL запиту:
+
+include::{snippets}/regions/import-map/curl-request.adoc[]
+
+Параметри HTTP запиту:
+
+include::{snippets}/regions/import-map/request-parameters.adoc[]
+
+Приклад HTTP запиту:
+
+include::{snippets}/regions/import-map/http-request.adoc[]
+
+Приклад HTTP відповіді:
+
+include::{snippets}/regions/import-map/http-response.adoc[]
