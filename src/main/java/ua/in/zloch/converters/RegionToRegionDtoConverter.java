@@ -8,7 +8,7 @@ import java.util.List;
 
 
 
-public class RegionToRegionDTOConverter implements Converter<List<Region>, RegionListDTO> {
+public class RegionToRegionDtoConverter implements Converter<List<Region>, RegionListDTO> {
     @Override
     public RegionListDTO convert(List<Region> regionList) {
         RegionListDTO dtoList = new RegionListDTO();
