@@ -2,6 +2,7 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.dto.RegionListDTO;
 import ua.in.zloch.entity.Region;
+import ua.in.zloch.entity.RegionFilter;
 import ua.in.zloch.entity.User;
 import ua.in.zloch.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class ImportController {
     }
 
     @RequestMapping("/regions/get")
-    public RegionListDTO get(){
-        return conversionService.convert(regionService.getAllRegions(), RegionListDTO.class);
+    public RegionListDTO get(RegionFilter filter){
+        return conversionService.convert(regionService.getRegions(filter), RegionListDTO.class);
     }
 
     @RequestMapping("/regions/import")

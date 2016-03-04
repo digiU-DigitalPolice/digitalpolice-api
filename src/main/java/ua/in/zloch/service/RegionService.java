@@ -1,11 +1,8 @@
 package ua.in.zloch.service;
 
-import ua.in.zloch.entity.Crime;
-import ua.in.zloch.entity.Filter;
+import ua.in.zloch.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.in.zloch.entity.Region;
-import ua.in.zloch.entity.User;
 import ua.in.zloch.repository.definition.*;
 
 import java.awt.geom.Path2D;
@@ -119,8 +116,8 @@ public class RegionService {
         return coordinatesAsJson.toString();
     }
 
-    public List<Region> getAllRegions(){
-        return regionDAO.getAll();
+    public List<Region> getRegions(RegionFilter filter){
+        return regionDAO.search(filter);
     }
 
     public void saveRegion(Region region) {
