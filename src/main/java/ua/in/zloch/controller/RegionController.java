@@ -29,11 +29,4 @@ public class RegionController {
     public RegionListDTO get(RegionFilter filter){
         return conversionService.convert(regionService.getRegions(filter), RegionListDTO.class);
     }
-
-    @RequestMapping("/region/import")
-    public User importRegions(){
-        this.regionService.importRegions();
-        return new User("username");
-    }
-
 }
