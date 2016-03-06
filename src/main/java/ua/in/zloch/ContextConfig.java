@@ -1,5 +1,8 @@
 package ua.in.zloch;
 
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import ua.in.zloch.converters.CrimeToCrimeDtoConverter;
 import ua.in.zloch.util.Config;
 import org.hibernate.SessionFactory;
@@ -71,6 +74,16 @@ public class ContextConfig {
         bean.afterPropertiesSet();
         ConversionService conversionService = bean.getObject();
         return conversionService;
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/map").allowedOrigins(Config.get().strValue("allowedOrigins").split(","));
+            }
+        };
     }
 
     private Set<Converter<?, ?>> getConverters() {
