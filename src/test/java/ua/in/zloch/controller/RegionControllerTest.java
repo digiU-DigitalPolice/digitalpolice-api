@@ -1,10 +1,7 @@
 package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
-import ua.in.zloch.dto.CrimeListDTO;
 import ua.in.zloch.dto.RegionListDTO;
-import ua.in.zloch.entity.Region;
-import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +19,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ua.in.zloch.service.RegionService;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CityPoliceApplication.class)
 @WebAppConfiguration
-public class ImportControllerTest {
+public class RegionControllerTest {
 
     @Mock
     private RegionService regionService;
@@ -44,21 +40,21 @@ public class ImportControllerTest {
     private ConversionService conversionService;
 
     @InjectMocks
-    private ImportController importController;
+    private RegionController regionController;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(importController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(regionController).build();
     }
 
     @Test
     public void testGetUnfilteredCrimesList() throws Exception {
         when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createTwoRegionDTO());
 
-        mockMvc.perform(get("/regions/get"))
+        mockMvc.perform(get("/region"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true));

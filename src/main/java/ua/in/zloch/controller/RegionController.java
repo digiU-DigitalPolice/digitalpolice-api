@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.in.zloch.service.RegionService;
 
 @RestController
-public class ImportController {
+public class RegionController {
 
     private MapService mapService;
     private RegionService regionService;
     private ConversionService conversionService;
 
     @Autowired
-    public ImportController(MapService mapService, ConversionService conversionService, RegionService regionService) {
+    public RegionController(MapService mapService, ConversionService conversionService, RegionService regionService) {
         this.mapService = mapService;
         this.conversionService = conversionService;
         this.regionService = regionService;
     }
 
-    @RequestMapping("/regions/get")
+    @RequestMapping("/region")
     public RegionListDTO get(RegionFilter filter){
         return conversionService.convert(regionService.getRegions(filter), RegionListDTO.class);
     }
 
-    @RequestMapping("/regions/import")
+    @RequestMapping("/region/import")
     public User importRegions(){
         this.regionService.importRegions();
         return new User("username");
