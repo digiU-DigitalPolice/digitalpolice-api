@@ -43,7 +43,7 @@ public class ContextConfig {
         properties.put("hibernate.show_sql", false);
         properties.put("connection.pool_size", 1);
         properties.put("current_session_context_class", "thread");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", Config.get().strValue("hibernate.hbm2ddl.auto"));
         return properties;
     }
 
