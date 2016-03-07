@@ -83,7 +83,7 @@ public class ContextConfig {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/map").allowedOrigins(Config.get().strValue("allowedOrigins").split(","));
+                registry.addMapping("/crimes").allowedOrigins(Config.get().strValue("allowedOrigins").split(","));
             }
         };
     }

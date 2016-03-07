@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CityPoliceApplication.class)
 @WebAppConfiguration
-public class MapControllerTest {
+public class CrimeControllerTest {
 
     @Mock
     private MapService mapService;
@@ -41,21 +41,21 @@ public class MapControllerTest {
     private ConversionService conversionService;
 
     @InjectMocks
-    private MapController mapController;
+    private CrimeController crimeController;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(mapController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(crimeController).build();
     }
 
     @Test
     public void testGetUnfilteredCrimesList() throws Exception {
         when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createTwoCrimesDTO());
 
-        mockMvc.perform(get("/map"))
+        mockMvc.perform(get("/crimes"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true));

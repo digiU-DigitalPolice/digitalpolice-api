@@ -25,7 +25,7 @@ public class RegionController {
         this.regionService = regionService;
     }
 
-    @RequestMapping("/region")
+    @RequestMapping("/regions")
     public RegionListDTO get(RegionFilter filter){
         return conversionService.convert(regionService.getRegions(filter), RegionListDTO.class);
     }

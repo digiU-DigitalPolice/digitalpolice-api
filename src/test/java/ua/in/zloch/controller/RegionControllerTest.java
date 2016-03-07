@@ -54,7 +54,7 @@ public class RegionControllerTest {
     public void testGetUnfilteredCrimesList() throws Exception {
         when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createTwoRegionDTO());
 
-        mockMvc.perform(get("/region"))
+        mockMvc.perform(get("/regions"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true));

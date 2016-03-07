@@ -51,7 +51,7 @@ public class MapControllerDocumentation {
     private ConversionService conversionService;
 
     @InjectMocks
-    private MapController mapController;
+    private CrimeController crimeController;
 
     private MockMvc mockMvc;
 
@@ -59,7 +59,7 @@ public class MapControllerDocumentation {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(mapController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(crimeController)
                 .apply(documentationConfiguration(this.restDocumentation).uris()
                         .withScheme("http")
                         .withHost("162.211.230.155")
@@ -71,7 +71,7 @@ public class MapControllerDocumentation {
     public void testGetCrimesMap() throws Exception {
         when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createCrimeDTO());
 
-        mockMvc.perform(get("/map")
+        mockMvc.perform(get("/crimes")
                 .accept(MediaType.APPLICATION_JSON)
                 .param("dateFrom", "2015/01/01")
                 .param("dateTo", "2015/12/31")
