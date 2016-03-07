@@ -1,12 +1,5 @@
 package ua.in.zloch;
 
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import ua.in.zloch.converters.CategoryToCategoryDtoConverter;
-import ua.in.zloch.converters.CrimeToCrimeDtoConverter;
-import ua.in.zloch.converters.RegionToRegionDtoConverter;
-import ua.in.zloch.util.Config;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +10,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import ua.in.zloch.converters.CategoryToCategoryDtoConverter;
+import ua.in.zloch.converters.CrimeToCrimeDtoConverter;
+import ua.in.zloch.converters.RegionToRegionDtoConverter;
+import ua.in.zloch.util.Config;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import java.util.Set;
 @EnableTransactionManagement
 public class ContextConfig {
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource datasource = new DriverManagerDataSource();
         datasource.setDriverClassName(Config.get().strValue("datasource.driver"));
         datasource.setUrl(Config.get().strValue("datasource.url"));
@@ -38,7 +38,7 @@ public class ContextConfig {
     }
 
     @Bean
-    public Properties hibernateProperties(){
+    public Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", false);
         properties.put("connection.pool_size", 1);
@@ -48,19 +48,18 @@ public class ContextConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager()
-    {
+    public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager htm = new HibernateTransactionManager();
         htm.setSessionFactory(sessionFactory());
         return htm;
     }
 
     @Bean
-    public SessionFactory sessionFactory(){
+    public SessionFactory sessionFactory() {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setDataSource(dataSource());
         factory.setHibernateProperties(hibernateProperties());
-        factory.setPackagesToScan(new String[]{"ua.in.zloch.entity"});
+        factory.setPackagesToScan("ua.in.zloch.entity");
         try {
             factory.afterPropertiesSet();
         } catch (IOException e) {
@@ -70,12 +69,11 @@ public class ContextConfig {
     }
 
     @Bean
-    public ConversionService conversionService(){
+    public ConversionService conversionService() {
         ConversionServiceFactoryBean bean = new ConversionServiceFactoryBean();
-        bean.setConverters( getConverters() );
+        bean.setConverters(getConverters());
         bean.afterPropertiesSet();
-        ConversionService conversionService = bean.getObject();
-        return conversionService;
+        return bean.getObject();
     }
 
     @Bean
@@ -83,16 +81,19 @@ public class ContextConfig {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/crimes").allowedOrigins(Config.get().strValue("allowedOrigins").split(","));
+                String[] origins = Config.get().strValue("allowedOrigins").split(",");
+                registry.addMapping("/crimes").allowedOrigins(origins);
+                registry.addMapping("/categories").allowedOrigins(origins);
+                registry.addMapping("/regions").allowedOrigins(origins);
             }
         };
     }
 
     private Set<Converter<?, ?>> getConverters() {
         Set<Converter<?, ?>> converters = new HashSet<Converter<?, ?>>();
-        converters.add( new CrimeToCrimeDtoConverter() );
-        converters.add( new RegionToRegionDtoConverter() );
-        converters.add( new CategoryToCategoryDtoConverter() );
+        converters.add(new CrimeToCrimeDtoConverter());
+        converters.add(new RegionToRegionDtoConverter());
+        converters.add(new CategoryToCategoryDtoConverter());
         return converters;
     }
 }
