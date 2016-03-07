@@ -70,7 +70,7 @@ public class RegionControllerDocumentation {
     public void testGetRegions() throws Exception {
         when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createRegionDTO());
 
-        mockMvc.perform(get("/region")
+        mockMvc.perform(get("/regions")
                 .accept(MediaType.APPLICATION_JSON)
                 .param("id", "1")
                 .param("regionIds", "4610136300,4610136600")

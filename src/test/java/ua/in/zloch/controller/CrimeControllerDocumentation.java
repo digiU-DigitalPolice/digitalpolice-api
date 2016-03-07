@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CityPoliceApplication.class)
 @WebAppConfiguration
-public class MapControllerDocumentation {
+public class CrimeControllerDocumentation {
 
     @Rule
     public RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
