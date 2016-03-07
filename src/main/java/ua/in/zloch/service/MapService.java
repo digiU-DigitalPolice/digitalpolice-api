@@ -1,5 +1,6 @@
 package ua.in.zloch.service;
 
+import ua.in.zloch.entity.Category;
 import ua.in.zloch.entity.Crime;
 import ua.in.zloch.entity.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,9 @@ public class MapService {
 
     public List<Crime> filterCrimes(Filter filter){
         return crimeDAO.search(filter);
+    }
+
+    public List<Category> getAllCategories() {
+        return this.categoryDAO.getAll();
     }
 }

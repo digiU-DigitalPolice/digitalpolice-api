@@ -3,6 +3,7 @@ package ua.in.zloch;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import ua.in.zloch.converters.CategoryToCategoryDtoConverter;
 import ua.in.zloch.converters.CrimeToCrimeDtoConverter;
 import ua.in.zloch.converters.RegionToRegionDtoConverter;
 import ua.in.zloch.util.Config;
@@ -91,6 +92,7 @@ public class ContextConfig {
         Set<Converter<?, ?>> converters = new HashSet<Converter<?, ?>>();
         converters.add( new CrimeToCrimeDtoConverter() );
         converters.add( new RegionToRegionDtoConverter() );
+        converters.add( new CategoryToCategoryDtoConverter() );
         return converters;
     }
 }
