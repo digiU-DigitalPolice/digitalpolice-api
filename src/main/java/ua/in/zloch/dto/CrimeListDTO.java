@@ -72,7 +72,7 @@ public class CrimeListDTO {
             this.properties.put(REGION_NAME, regionName);
         }
 
-        public void setRegionKoatuu(String regionKoatuu) {
+        public void setRegionKoatuu(Long regionKoatuu) {
             this.properties.put(REGION_KOATUU, regionKoatuu);
         }
     }

@@ -33,7 +33,7 @@ public class RegionListDTO {
             this.region.put(NAME, name);
         }
 
-        public void setKoatu(String koatu) {
+        public void setKoatu(long koatu) {
             this.region.put(KOATU, koatu);
         }
 

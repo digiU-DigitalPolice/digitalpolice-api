@@ -11,10 +11,11 @@ public class Crime implements Serializable{
     private long id;
     private double latitude;
     private double longitude;
+    private Long koatuu;
     @OneToOne
     private Category category;
     @OneToOne
-    @JoinColumn(name = "koatuu")
+    @JoinColumn(name = "koatuu", referencedColumnName = "koatuu", insertable=false, updatable=false)
     private Region region;
     private Date date;
 
@@ -79,5 +80,13 @@ public class Crime implements Serializable{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Long getKoatuu() {
+        return koatuu;
+    }
+
+    public void setKoatuu(Long koatuu) {
+        this.koatuu = koatuu;
     }
 }

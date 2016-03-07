@@ -35,7 +35,8 @@ public class CrimeToCrimeDtoConverterTest {
         expectedProperties.put("id", 123l);
         expectedProperties.put("date", 1456175351l);
         expectedProperties.put("category.id", 394l);
-        expectedProperties.put("region.id", 102l);
+        expectedProperties.put("region.name", "ЗАЛІЗНИЧНИЙ");
+        expectedProperties.put("region.koatuu", 4610136300l);
 
         assertEqualsMapEpsilon(expectedProperties, crimeDTO.getProperties());
     }
@@ -82,6 +83,8 @@ public class CrimeToCrimeDtoConverterTest {
     private Region createTestRegion() {
         Region region = new Region();
         region.setId(102l);
+        region.setName("ЗАЛІЗНИЧНИЙ");
+        region.setKoatuu(4610136300l);
         return region;
     }
 
