@@ -1,7 +1,7 @@
 package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
-import ua.in.zloch.dto.CrimeListDTO;
+import ua.in.zloch.dto.CategoryListDTO;
 import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +29,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = CityPoliceApplication.class)
 @WebAppConfiguration
-public class MapControllerDocumentation {
+public class CategoryControllerDocumentation {
 
     @Rule
     public RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
@@ -51,7 +49,7 @@ public class MapControllerDocumentation {
     private ConversionService conversionService;
 
     @InjectMocks
-    private CrimeController crimeController;
+    private CategoryController categoryController;
 
     private MockMvc mockMvc;
 
@@ -59,7 +57,7 @@ public class MapControllerDocumentation {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(crimeController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
                 .apply(documentationConfiguration(this.restDocumentation).uris()
                         .withScheme("http")
                         .withHost("162.211.230.155")
@@ -68,30 +66,21 @@ public class MapControllerDocumentation {
     }
 
     @Test
-    public void testGetCrimesMap() throws Exception {
-        when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createCrimeDTO());
+    public void testGetCategories() throws Exception {
+        when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createCategoryDTO());
 
-        mockMvc.perform(get("/crimes")
-                .accept(MediaType.APPLICATION_JSON)
-                .param("dateFrom", "2015/01/01")
-                .param("dateTo", "2015/12/31")
-                .param("categories", "1,2,3")
-                .param("regionIds", "4610136300,2"))
+        mockMvc.perform(get("/categories")
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true))
-                .andDo(document("get-map",
+                .andExpect(content().json(expectedUnfilteredCategoriesListJSON(), true))
+                .andDo(document("get-category",
                         preprocessResponse(prettyPrint()),
-                        requestParameters(
-                                parameterWithName("dateFrom").attributes().description("Початкова дата, від якої шукати злочини. Формат дати yyyy/mm/dd"),
-                                parameterWithName("dateTo").description("Кінцева дата, до якої шукати злочини. Формат дати yyyy/mm/dd"),
-                                parameterWithName("categories").description("id категорій до яких відносяться злочини, перелічені через кому"),
-                                parameterWithName("regionIds").description("koatuu-коди регіонів, у яких відбулись злочини, перелічені через кому")
-                        )));
+                        requestParameters()));
     }
 
-    private String expectedUnfilteredCrimeListJSON() {
-        return readFromResource("ua.in.zloch/single-crime.json");
+    private String expectedUnfilteredCategoriesListJSON() {
+        return readFromResource("ua.in.zloch/categories-list.json");
     }
 
     private String readFromResource(String resourceName) {
@@ -102,17 +91,18 @@ public class MapControllerDocumentation {
         }
     }
 
-    private CrimeListDTO createCrimeDTO() {
-        CrimeListDTO dtoList = new CrimeListDTO();
+    private CategoryListDTO createCategoryDTO() {
+        CategoryListDTO dtoList = new CategoryListDTO();
 
-        CrimeListDTO.CrimeDTO dto = new CrimeListDTO().new CrimeDTO();
-        dto.setCoordinates(24.01499, 49.79653);
-        dto.setId(1l);
-        dto.setDate(new Date(1431986400000l));
-        dto.setCategoryId(1l);
-        dto.setRegionName("ЗАЛІЗНИЧНИЙ");
-        dto.setRegionKoatuu(4610136300l);
-        dtoList.addFeature(dto);
+        CategoryListDTO.CategoryDTO dto = new CategoryListDTO().new CategoryDTO();
+        dto.setId(123l);
+        dto.setTitle("DTP");
+        dtoList.addCategory(dto);
+
+        CategoryListDTO.CategoryDTO dtoTwo = new CategoryListDTO().new CategoryDTO();
+        dtoTwo.setId(124l);
+        dtoTwo.setTitle("Murder");
+        dtoList.addCategory(dtoTwo);
 
         return dtoList;
     }
