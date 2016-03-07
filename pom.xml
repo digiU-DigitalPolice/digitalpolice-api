@@ -70,6 +70,10 @@
             <version>1.0.1.RELEASE</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
 	</dependencies>
 
     <repositories>
