@@ -2,6 +2,7 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
+import ua.in.zloch.entity.Region;
 import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,7 +82,8 @@ public class CrimeControllerTest {
         dto.setId(123l);
         dto.setDate(new Date(1456209116l));
         dto.setCategoryId(8l);
-        dto.setRegionId(7l);
+        dto.setRegionName("ЗАЛІЗНИЧНИЙ");
+        dto.setRegionKoatuu("4610136300");
         dtoList.addFeature(dto);
 
         CrimeListDTO.CrimeDTO dtoTwo = new CrimeListDTO().new CrimeDTO();
@@ -89,7 +91,8 @@ public class CrimeControllerTest {
         dtoTwo.setId(456l);
         dtoTwo.setDate(new Date(1456209117l));
         dtoTwo.setCategoryId(3l);
-        dtoTwo.setRegionId(4l);
+        dtoTwo.setRegionName("undefined");
+        dtoTwo.setRegionKoatuu("undefined");
         dtoList.addFeature(dtoTwo);
 
         return dtoList;

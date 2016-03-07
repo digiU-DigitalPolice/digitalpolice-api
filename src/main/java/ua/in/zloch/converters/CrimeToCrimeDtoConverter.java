@@ -17,7 +17,11 @@ public class CrimeToCrimeDtoConverter implements Converter<List<Crime>, CrimeLis
             dto.setDate(crime.getDate());
             dto.setCategoryId(crime.getCategory().getId());
             if (crime.getRegion() != null) {
-                dto.setRegionId(crime.getRegion().getId());
+                dto.setRegionName(crime.getRegion().getName());
+                dto.setRegionKoatuu(crime.getRegion().getKoatuu());
+            } else {
+                dto.setRegionName("undefined");
+                dto.setRegionKoatuu("undefined");
             }
 
             dtoList.addFeature(dto);

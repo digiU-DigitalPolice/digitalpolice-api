@@ -108,7 +108,8 @@ public class MapControllerDocumentation {
         dto.setId(1l);
         dto.setDate(new Date(1431986400000l));
         dto.setCategoryId(1l);
-        dto.setRegionId(7l);
+        dto.setRegionName("ЗАЛІЗНИЧНИЙ");
+        dto.setRegionKoatuu("4610136300");
         dtoList.addFeature(dto);
 
         return dtoList;

@@ -14,6 +14,7 @@ public class Crime implements Serializable{
     @OneToOne
     private Category category;
     @OneToOne
+    @JoinColumn(name = "koatuu")
     private Region region;
     private Date date;
 
