@@ -1,7 +1,8 @@
 package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
-import ua.in.zloch.dto.CategoryListDTO;
+import ua.in.zloch.dto.CategoryDTO;
+import ua.in.zloch.service.CategoryService;
 import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +45,7 @@ public class CategoryControllerDocumentation {
     public RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
 
     @Mock
-    private MapService mapService;
+    private CategoryService categoryService;
 
     @Mock
     private ConversionService conversionService;
@@ -67,7 +69,7 @@ public class CategoryControllerDocumentation {
 
     @Test
     public void testGetCategories() throws Exception {
-        when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createCategoryDTO());
+        when(categoryService.getAllCategories()).thenReturn(createTwoCategoriesDTO());
 
         mockMvc.perform(get("/categories")
                 .accept(MediaType.APPLICATION_JSON))
@@ -91,19 +93,20 @@ public class CategoryControllerDocumentation {
         }
     }
 
-    private CategoryListDTO createCategoryDTO() {
-        CategoryListDTO dtoList = new CategoryListDTO();
+    private List<CategoryDTO> createTwoCategoriesDTO() {
+        CategoryDTO dtoOne = new CategoryDTO();
+        dtoOne.setId(123l);
+        dtoOne.setTitle("DTP");
 
-        CategoryListDTO.CategoryDTO dto = new CategoryListDTO().new CategoryDTO();
-        dto.setId(123l);
-        dto.setTitle("DTP");
-        dtoList.addCategory(dto);
-
-        CategoryListDTO.CategoryDTO dtoTwo = new CategoryListDTO().new CategoryDTO();
+        CategoryDTO dtoTwo = new CategoryDTO();
         dtoTwo.setId(124l);
         dtoTwo.setTitle("Murder");
-        dtoList.addCategory(dtoTwo);
+
+        List<CategoryDTO> dtoList = new ArrayList<>();
+        dtoList.add(dtoOne);
+        dtoList.add(dtoTwo);
 
         return dtoList;
     }
+
 }
