@@ -16,7 +16,7 @@ public class Region implements Serializable{
     @OneToOne(optional = true)
     private Region parent;
     private String name;
-    private String koatuu;
+    private Long koatuu;
     @Column(name = "boundariesLong2", length = 30000)
     private String boundaries;
 
@@ -47,11 +47,11 @@ public class Region implements Serializable{
         this.name = name;
     }
 
-    public String getKoatuu() {
+    public Long getKoatuu() {
         return koatuu;
     }
 
-    public void setKoatuu(String koatuu) {
+    public void setKoatuu(Long koatuu) {
         this.koatuu = koatuu;
     }
 

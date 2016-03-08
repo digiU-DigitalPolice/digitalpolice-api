@@ -7,6 +7,5 @@ import ua.in.zloch.repository.GenericDAO;
 import java.util.List;
 
 public interface RegionDAO extends GenericDAO<Region,Long> {
-    public List<Region> searchByKoatuu(String koatuu);
     public List<Region> search(RegionFilter filter);
 }

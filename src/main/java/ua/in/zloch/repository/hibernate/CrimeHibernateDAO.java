@@ -22,7 +22,7 @@ public class CrimeHibernateDAO extends HibernateDAO<Crime, Long> implements Crim
         if(filter.getCategories() != null && filter.getCategories().size() > 0)
             criteria.add(Restrictions.in("category.id", filter.getCategories()));
         if(filter.getRegions() != null && filter.getRegions().size() > 0)
-            criteria.add(Restrictions.in("region", filter.getRegions()));
+            criteria.add(Restrictions.in("koatuu", filter.getRegions()));
         return criteria.list();
     }
 }

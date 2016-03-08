@@ -24,13 +24,13 @@ public class RegionListDtoTest {
 
         regionDTO.setId(1);
         regionDTO.setName("Frankivsky");
-        regionDTO.setKoatu("12345");
+        regionDTO.setKoatu(12345l);
         regionDTO.setBoundaries("[]");
 
         assertNotNull(regionDTO.getRegion());
         assertEquals((long) 1, regionDTO.getRegion().get(RegionListDTO.RegionDTO.ID));
         assertEquals("Frankivsky", regionDTO.getRegion().get(RegionListDTO.RegionDTO.NAME));
-        assertEquals("12345", regionDTO.getRegion().get(RegionListDTO.RegionDTO.KOATU));
+        assertEquals(12345l, regionDTO.getRegion().get(RegionListDTO.RegionDTO.KOATU));
         assertEquals("[]", regionDTO.getRegion().get(RegionListDTO.RegionDTO.BOUNDARIES));
     }
 

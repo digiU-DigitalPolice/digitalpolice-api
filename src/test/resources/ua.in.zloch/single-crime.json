@@ -14,7 +14,8 @@
         "date": 1431986400000,
         "id": 1,
         "category.id": 1,
-        "region.id": 7
+        "region.name": "ЗАЛІЗНИЧНИЙ",
+        "region.koatuu": 4610136300
       }
     }
   ]
