@@ -72,20 +72,14 @@ public class RegionControllerDocumentation {
 
         mockMvc.perform(get("/regions")
                 .accept(MediaType.APPLICATION_JSON)
-                .param("id", "1")
-                .param("regionIds", "4610136300,4610136600")
-                .param("name", "ЗАЛІЗНИЧНИЙ")
-                .param("koatuu", "4610136300"))
+                .param("regionIds", "4610136300,4610136600"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredRegionsListJSON(), true))
                 .andDo(document("get-region",
                         preprocessResponse(prettyPrint()),
                         requestParameters(
-                                parameterWithName("id").attributes().description("id регіону"),
-                                parameterWithName("regionIds").attributes().description("список koatuu id регіонів, записані через кому"),
-                                parameterWithName("name").attributes().description("ім'я району для пошуку"),
-                                parameterWithName("koatuu").attributes().description("koatuu району для пошуку")
+                                parameterWithName("regionIds").attributes().description("список koatuu id регіонів, записані через кому")
                         )));
     }
 

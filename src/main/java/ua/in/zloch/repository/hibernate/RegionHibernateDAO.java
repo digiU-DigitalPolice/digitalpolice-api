@@ -11,24 +11,10 @@ import java.util.List;
 
 @Repository
 public class RegionHibernateDAO extends HibernateDAO<Region,Long> implements RegionDAO {
-    public List<Region> searchByKoatuu(String koatuu) {
-        Criteria criteria = getSession().createCriteria(Region.class);
-        if(!koatuu.isEmpty())
-            criteria.add(Restrictions.eq("koatuu", koatuu));
-
-        return criteria.list();
-    }
-
     public List<Region> search(RegionFilter filter) {
         Criteria criteria = getSession().createCriteria(Region.class);
-        if(filter.getId() > 0)
-            criteria.add(Restrictions.eq("id", filter.getId()));
-        if(filter.getName() != null)
-            criteria.add(Restrictions.eq("name", filter.getName()));
-        if(filter.getKoatuu() != null)
-            criteria.add(Restrictions.eq("koatuu", filter.getKoatuu()));
-        if(filter.getRegionIds() != null)
-            criteria.add(Restrictions.in("id", filter.getRegionIds()));
+        if(filter.getKoatuuIds() != null)
+            criteria.add(Restrictions.in("id", filter.getKoatuuIds()));
         return criteria.list();
     }
 

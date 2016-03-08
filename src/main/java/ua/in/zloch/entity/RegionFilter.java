@@ -2,7 +2,6 @@ package ua.in.zloch.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,42 +10,15 @@ public class RegionFilter implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ElementCollection(targetClass=Long.class)
-    private List<Long> regionIds;
-    private String name;
-    private String koatuu;
-
+    private List<Long> koatuuIds;
     public RegionFilter() {
     }
 
-    public long getId() {
-        return id;
+    public List<Long> getKoatuuIds() {
+        return koatuuIds;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public List<Long> getRegionIds() {
-        return regionIds;
-    }
-
-    public void setRegionIds(List<Long> regionIds) {
-        this.regionIds = regionIds;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getKoatuu() {
-        return koatuu;
-    }
-
-    public void setKoatuu(String koatuu) {
-        this.koatuu = koatuu;
+    public void setKoatuuIds(List<Long> koatuuIds) {
+        this.koatuuIds = koatuuIds;
     }
 }

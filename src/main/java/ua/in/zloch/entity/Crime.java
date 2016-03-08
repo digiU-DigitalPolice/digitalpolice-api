@@ -11,7 +11,6 @@ public class Crime implements Serializable{
     private long id;
     private double latitude;
     private double longitude;
-    private Long koatuu;
     @OneToOne
     private Category category;
     @OneToOne
@@ -80,13 +79,5 @@ public class Crime implements Serializable{
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Long getKoatuu() {
-        return koatuu;
-    }
-
-    public void setKoatuu(Long koatuu) {
-        this.koatuu = koatuu;
     }
 }
