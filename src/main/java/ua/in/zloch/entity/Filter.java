@@ -50,16 +50,16 @@ public class Filter implements Serializable{
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setDateFrom(long dateFromUnixtime) {
+        this.dateFrom = new java.util.Date(dateFromUnixtime*1000);
     }
 
     public Date getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
+    public void setDateTo(long dateToUnixtime) {
+        this.dateTo = new java.util.Date(dateToUnixtime*1000);
     }
 
     public int getZoom() {

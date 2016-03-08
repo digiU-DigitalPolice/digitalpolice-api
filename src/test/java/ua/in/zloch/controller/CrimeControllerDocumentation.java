@@ -2,6 +2,7 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
+import ua.in.zloch.entity.FilterTest;
 import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,7 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -73,8 +76,8 @@ public class CrimeControllerDocumentation {
 
         mockMvc.perform(get("/crimes")
                 .accept(MediaType.APPLICATION_JSON)
-                .param("dateFrom", "2015/01/01")
-                .param("dateTo", "2015/12/31")
+                .param("dateFrom", FilterTest.timeStringToUnixtimeAsString("2015/01/01"))
+                .param("dateTo", FilterTest.timeStringToUnixtimeAsString("2015/12/31"))
                 .param("categories", "1,2,3")
                 .param("regionIds", "4610136300,2"))
                 .andExpect(status().isOk())
@@ -83,8 +86,8 @@ public class CrimeControllerDocumentation {
                 .andDo(document("get-map",
                         preprocessResponse(prettyPrint()),
                         requestParameters(
-                                parameterWithName("dateFrom").attributes().description("Початкова дата, від якої шукати злочини. Формат дати yyyy/mm/dd"),
-                                parameterWithName("dateTo").description("Кінцева дата, до якої шукати злочини. Формат дати yyyy/mm/dd"),
+                                parameterWithName("dateFrom").attributes().description("Початкова дата, від якої шукати злочини. Формат дати unixtime (long, число секунд з Jan 1, 1970)"),
+                                parameterWithName("dateTo").description("Кінцева дата, до якої шукати злочини. Формат дати - unixtime (long, число секунд з Jan 1, 1970)"),
                                 parameterWithName("categories").description("id категорій до яких відносяться злочини, перелічені через кому"),
                                 parameterWithName("regionIds").description("koatuu-коди регіонів, у яких відбулись злочини, перелічені через кому")
                         )));
