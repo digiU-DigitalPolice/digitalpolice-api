@@ -44,18 +44,18 @@ public class FilterTest {
         return sdf.parse(date);
     }
 
-    private static long timeStringToUnixtime(String date) {
+    private static long timeStringToUnixtimeMilliseconds(String date) {
         try {
             Date dateObject = getDateFromString(date);
-            return dateObject.getTime() / 1000;
+            return dateObject.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
             return -1;
         }
     }
 
-    public static String timeStringToUnixtimeAsString(String date) {
-        return Long.toString(FilterTest.timeStringToUnixtime(date));
+    public static String timeStringToUnixtimeMillisecondsAsString(String date) {
+        return Long.toString(FilterTest.timeStringToUnixtimeMilliseconds(date));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class FilterTest {
         String testDateString = "2015/01/01";
         Date testDate = getDateFromString(testDateString);
         Filter filter = new Filter();
-        filter.setDateFrom(FilterTest.timeStringToUnixtime(testDateString));
+        filter.setDateFrom(FilterTest.timeStringToUnixtimeMilliseconds(testDateString));
 
         assertEquals(testDate, filter.getDateFrom());
     }
@@ -73,7 +73,7 @@ public class FilterTest {
         String testDateString = "2015/03/04";
         Date testDate = getDateFromString(testDateString);
         Filter filter = new Filter();
-        filter.setDateTo(FilterTest.timeStringToUnixtime(testDateString));
+        filter.setDateTo(FilterTest.timeStringToUnixtimeMilliseconds(testDateString));
 
         assertEquals(testDate, filter.getDateTo());
     }

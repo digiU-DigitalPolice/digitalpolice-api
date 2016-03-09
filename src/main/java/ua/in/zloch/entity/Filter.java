@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
 public class Filter implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +50,7 @@ public class Filter implements Serializable{
     }
 
     public void setDateFrom(long dateFromUnixtime) {
-        this.dateFrom = new java.util.Date(dateFromUnixtime*1000);
+        this.dateFrom = new java.util.Date(dateFromUnixtime);
     }
 
     public Date getDateTo() {
@@ -59,7 +58,7 @@ public class Filter implements Serializable{
     }
 
     public void setDateTo(long dateToUnixtime) {
-        this.dateTo = new java.util.Date(dateToUnixtime*1000);
+        this.dateTo = new java.util.Date(dateToUnixtime);
     }
 
     public int getZoom() {
