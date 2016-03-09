@@ -14,7 +14,7 @@ public class RegionHibernateDAO extends HibernateDAO<Region,Long> implements Reg
     public List<Region> search(RegionFilter filter) {
         Criteria criteria = getSession().createCriteria(Region.class);
         if(filter.getKoatuuIds() != null)
-            criteria.add(Restrictions.in("id", filter.getKoatuuIds()));
+            criteria.add(Restrictions.in("koatuu", filter.getKoatuuIds()));
         return criteria.list();
     }
 
