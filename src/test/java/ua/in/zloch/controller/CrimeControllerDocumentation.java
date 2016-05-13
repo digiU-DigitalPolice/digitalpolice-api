@@ -2,7 +2,6 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.entity.FilterTest;
 import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Rule;
@@ -74,8 +73,8 @@ public class CrimeControllerDocumentation {
 
         mockMvc.perform(get("/crimes")
                 .accept(MediaType.APPLICATION_JSON)
-                .param("dateFrom", FilterTest.timeStringToUnixtimeMillisecondsAsString("2015/01/01"))
-                .param("dateTo", FilterTest.timeStringToUnixtimeMillisecondsAsString("2015/12/31"))
+                .param("dateFrom", "1420070400") // 2015/01/01
+                .param("dateTo", "1451520000") // 2015/12/31
                 .param("categories", "1,2,3")
                 .param("regionIds", "4610136300,2"))
                 .andExpect(status().isOk())
@@ -97,7 +96,7 @@ public class CrimeControllerDocumentation {
 
     private String readFromResource(String resourceName) {
         try {
-            return new Scanner(new ClassPathResource(resourceName).getInputStream()).useDelimiter("\\A").next();
+            return new Scanner(new ClassPathResource(resourceName).getInputStream(), "UTF-8").useDelimiter("\\A").next();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import ua.in.zloch.entity.RegionFilter;
 import ua.in.zloch.service.RegionService;
 
 import java.io.IOException;
@@ -54,7 +53,7 @@ public class RegionControllerTest {
 
     @Test
     public void testGetUnfilteredCrimesList() throws Exception {
-        when(regionService.getRegions(any(RegionFilter.class))).thenReturn(createTwoRegionDTO());
+        when(regionService.getRegions(any(List.class))).thenReturn(createTwoRegionDTO());
 
         mockMvc.perform(get("/regions"))
                 .andExpect(status().isOk())

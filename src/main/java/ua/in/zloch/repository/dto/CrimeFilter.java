@@ -1,33 +1,14 @@
-package ua.in.zloch.entity;
+package ua.in.zloch.repository.dto;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Filter implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @ElementCollection(targetClass=Long.class)
+public class CrimeFilter {
     private List<Long> regions;
-    @ElementCollection(targetClass=Long.class)
     private List<Long> categories;
     private Date dateFrom;
     private Date dateTo;
     private int zoom;
-
-    public Filter() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public List<Long> getRegions() {
         return regions;

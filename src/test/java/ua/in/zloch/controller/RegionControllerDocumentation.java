@@ -19,7 +19,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ua.in.zloch.dto.RegionDTO;
-import ua.in.zloch.entity.RegionFilter;
 import ua.in.zloch.service.RegionService;
 
 import java.io.IOException;
@@ -70,7 +69,7 @@ public class RegionControllerDocumentation {
 
     @Test
     public void testGetRegions() throws Exception {
-        when(regionService.getRegions(any(RegionFilter.class))).thenReturn(createTwoRegionDTOList());
+        when(regionService.getRegions(any(List.class))).thenReturn(createTwoRegionDTOList());
 
         mockMvc.perform(get("/regions")
                 .accept(MediaType.APPLICATION_JSON)
@@ -98,7 +97,7 @@ public class RegionControllerDocumentation {
     }
 
     private List<RegionDTO> createTwoRegionDTOList() {
-        ArrayList<RegionDTO> dtoList = new ArrayList<RegionDTO>();
+        List<RegionDTO> dtoList = new ArrayList<RegionDTO>();
         RegionDTO dto = new RegionDTO();
         dto.setId(123l);
         dto.setName("Frankivsky");

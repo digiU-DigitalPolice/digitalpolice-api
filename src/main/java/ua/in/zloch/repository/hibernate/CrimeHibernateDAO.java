@@ -1,19 +1,20 @@
 package ua.in.zloch.repository.hibernate;
 
-import ua.in.zloch.entity.Crime;
-import ua.in.zloch.entity.Filter;
-import ua.in.zloch.repository.HibernateDAO;
-import ua.in.zloch.repository.definition.CrimeDAO;
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import ua.in.zloch.entity.Crime;
+import ua.in.zloch.repository.HibernateDAO;
+import ua.in.zloch.repository.definition.CrimeDAO;
+import ua.in.zloch.repository.dto.CrimeFilter;
 
 @Repository
 public class CrimeHibernateDAO extends HibernateDAO<Crime, Long> implements CrimeDAO {
     @Override
-    public List<Crime> search(Filter filter) {
+    public List<Crime> search(CrimeFilter filter) {
         Criteria criteria = getSession().createCriteria(Crime.class);
         if(filter.getDateFrom() != null)
             criteria.add(Restrictions.ge("date", filter.getDateFrom()));

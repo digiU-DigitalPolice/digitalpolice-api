@@ -2,7 +2,6 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.entity.Region;
 import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,7 +67,7 @@ public class CrimeControllerTest {
 
     private String readFromResource(String resourceName) {
         try {
-            return new Scanner(new ClassPathResource(resourceName).getInputStream()).useDelimiter("\\A").next();
+            return new Scanner(new ClassPathResource(resourceName).getInputStream(), "UTF-8").useDelimiter("\\A").next();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
