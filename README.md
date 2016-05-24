@@ -8,6 +8,7 @@ Digital Police API provides REST services that expose crimes/incidents in a form
 #### Prerequisities
 
 Java 1.7 or higher
+
 Maven
 
 #### Before building testing and running
