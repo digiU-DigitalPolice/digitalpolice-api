@@ -22,8 +22,8 @@ public class RegionService {
         this.conversionService = conversionService;
     }
 
-    public List<RegionDTO> getRegions(List<Long> koatuuIds){
-        List regions = this.regionDAO.search(koatuuIds);
+    public List<RegionDTO> getRegions(List<Long> regionIds){
+        List regions = this.regionDAO.search(regionIds);
 
         TypeDescriptor originType = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(Region.class));
         TypeDescriptor targetType = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RegionDTO.class));

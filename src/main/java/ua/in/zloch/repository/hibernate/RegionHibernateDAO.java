@@ -10,10 +10,10 @@ import java.util.List;
 
 @Repository
 public class RegionHibernateDAO extends HibernateDAO<Region,Long> implements RegionDAO {
-    public List<Region> search(List<Long> koatuuIds) {
+    public List<Region> search(List<Long> regionIds) {
         Criteria criteria = getSession().createCriteria(Region.class);
-        if(koatuuIds != null)
-            criteria.add(Restrictions.in("koatuu", koatuuIds));
+        if(regionIds != null)
+            criteria.add(Restrictions.in("koatuu", regionIds));
         return criteria.list();
     }
 

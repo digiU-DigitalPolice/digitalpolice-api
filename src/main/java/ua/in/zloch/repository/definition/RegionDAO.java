@@ -6,5 +6,5 @@ import ua.in.zloch.repository.GenericDAO;
 import java.util.List;
 
 public interface RegionDAO extends GenericDAO<Region,Long> {
-    public List<Region> search(List<Long> koatuuIds);
+    List<Region> search(List<Long> regionIds);
 }
