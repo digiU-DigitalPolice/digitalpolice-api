@@ -1,17 +1,15 @@
 package ua.in.zloch.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
-import ua.in.zloch.dto.RegionDTO;
-import ua.in.zloch.entity.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.in.zloch.repository.definition.*;
 
-import java.awt.geom.Path2D;
-import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
+import ua.in.zloch.dto.RegionDTO;
+import ua.in.zloch.entity.Region;
+import ua.in.zloch.repository.definition.RegionDAO;
 
 @Service
 public class RegionService {
@@ -24,8 +22,8 @@ public class RegionService {
         this.conversionService = conversionService;
     }
 
-    public List<RegionDTO> getRegions(RegionFilter filter){
-        List regions = this.regionDAO.search(filter);
+    public List<RegionDTO> getRegions(List<Long> regionIds){
+        List regions = this.regionDAO.search(regionIds);
 
         TypeDescriptor originType = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(Region.class));
         TypeDescriptor targetType = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RegionDTO.class));

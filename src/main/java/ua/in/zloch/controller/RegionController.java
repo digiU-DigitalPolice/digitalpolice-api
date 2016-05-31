@@ -1,15 +1,15 @@
 package ua.in.zloch.controller;
 
-import ua.in.zloch.dto.RegionDTO;
-import ua.in.zloch.entity.RegionFilter;
-import ua.in.zloch.service.MapService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ua.in.zloch.service.RegionService;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import ua.in.zloch.dto.RegionDTO;
+import ua.in.zloch.service.RegionService;
 
 @RestController
 public class RegionController {
@@ -21,7 +21,7 @@ public class RegionController {
     }
 
     @RequestMapping("/regions")
-    public List<RegionDTO> get(RegionFilter filter){
-        return regionService.getRegions(filter);
+    public List<RegionDTO> get(@RequestParam(value="regionIds", required = false)ArrayList<Long> regionIds){
+        return regionService.getRegions(regionIds);
     }
 }
