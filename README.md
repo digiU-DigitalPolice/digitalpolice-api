@@ -1,54 +1,66 @@
 # digitalpolice-api
 [![Build Status](http://162.211.230.155:8181/job/digitalpolice-java/badge/icon)](http://162.211.230.155:8181/job/digitalpolice-java/)
 
-Digital Police API provides REST services that expose crimes/incidents in a format suitable for rendering on maps.
+Проект Digital Police fo Lviv передбачає створення інтерактивної карти злочинності м. Львова, інструменти додавання шарів інформації, перегляд дільничих поліцейських на карті Львова та можливість подати електронне звернення через наш сайт про правопорушення. Львів стане першим містом, де буде створено і запущено наші сервіси. Детальніше про проект - https://goo.gl/nSGKpm
 
-### Getting Started
+Digital Police API - репозиторій проекту, що надає REST сервіси які керують базою інцидентів/злочинів.
 
-#### Prerequisities
+### З чого почати
 
-Java 1.7 or higher
+#### Залежності
+
+Java 1.7 або вище
 
 Maven
 
-#### Before building testing and running
+#### Перед збіркою, тестуванням та запуском
 
-Make sure you are in the project folder 'digitalpolice-api'
+Зкопіюйте код проекту на локальний компютер:
 
-#### How to build
+```
+git clone https://github.com/digiU-DigitalPolice/digitalpolice-api.git
+```
+
+Перейдіть у папку 'digitalpolice-api'
+
+```
+cd digitalpolice-api
+```
+
+#### Як зібрати
 
 ```
 mvn clean install -DskipTests
 ```
 
-#### How to test
+#### Як прогнати автоматичні тести
 
 ```
 mvn test
 ```
 
-#### How to run locally
+#### Як запустити проект на локальному компютері
 
 ```
 java -jar target/citypolice-0.0.1-SNAPSHOT.jar
 ```
 
-### Documentation
+### REST документація
 
-Latest REST documentation is available by the [link](http://162.211.230.155:8080/docs/index.html).
+Актуальна REST документація доступна за [посиланням](http://162.211.230.155:8080/docs/index.html).
 
-### UAT environment
+### Демо середовищ
 
-Latest stable version of the API is available [here](http://162.211.230.155:8080/).
+Середовище на якому розгорнута остання робоча версія REST сервісів доступне за [посиланням](http://162.211.230.155:8080/).
 
-### Continuous Integration
+### Безперервна інтеграція (Continuous Integration)
 
-We are using Jenkins CI to build and deploy latest stable versions. Jenkins UI is available [here](http://162.211.230.155:8181/job/digitalpolice-java).
+Ми використовуємо Jenkins CI для того щоб збирати та розгортати останню версію проекту. Jenkins UI доступне за  [посиланням](http://162.211.230.155:8181/job/digitalpolice-java).
 
-### Issues
+### Завдання
 
-Feel free to submit issues and enhancement requests in case they are not duplicating existing issues.
+Кожен бажаючий може створити завдання (task/user story) або зазвітувати дефект (bug/defect) у вигляді github issue, якщо він не повторює існуючий.
 
-### How to contribute
+### Як долучитися
 
-Please read [CONTRIBUTING.md](https://github.com/digiU-DigitalPolice/digitalpolice-api/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Будь ласка перечитайте [CONTRIBUTING.md](https://github.com/digiU-DigitalPolice/digitalpolice-api/blob/master/CONTRIBUTING.md), щоб дізнатися деталі того, як внести зміни до репозиторія.

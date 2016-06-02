@@ -1,8 +1,10 @@
 ### How to contribute
 
+- Assign yourself to an existing or create a new issue
 - Fork the project
 - Make one or more well commented, test covered and clean commits to the repository.
-- Perform a pull request in github's web interface so the change gets reviewed.
+- Merge your fork with upstream repo
+- Create a pull request in github's web interface so the change gets reviewed.
 
 ### FAQ
 
