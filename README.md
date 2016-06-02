@@ -17,9 +17,15 @@ Maven
 
 Зкопіюйте код проекту на локальний компютер:
 
+```
 git clone https://github.com/digiU-DigitalPolice/digitalpolice-api.git
+```
 
 Перейдіть у папку 'digitalpolice-api'
+
+```
+cd digitalpolice-api
+```
 
 #### Як зібрати
 
