@@ -1,7 +1,5 @@
 package ua.in.zloch.controller;
 
-import ua.in.zloch.CityPoliceApplication;
-import ua.in.zloch.dto.RegionDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ua.in.zloch.CityPoliceApplication;
+import ua.in.zloch.dto.RegionDTO;
 import ua.in.zloch.service.RegionService;
 
 import java.io.IOException;

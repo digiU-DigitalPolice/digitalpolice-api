@@ -2,7 +2,8 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.service.MapService;
+import ua.in.zloch.repository.dto.CrimeFilter;
+import ua.in.zloch.service.CrimeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
 import java.util.Scanner;
 
 import static org.mockito.Matchers.any;
@@ -35,10 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CrimeControllerTest {
 
     @Mock
-    private MapService mapService;
-
-    @Mock
-    private ConversionService conversionService;
+    private CrimeService crimeService;
 
     @InjectMocks
     private CrimeController crimeController;
@@ -53,7 +49,7 @@ public class CrimeControllerTest {
 
     @Test
     public void testGetUnfilteredCrimesList() throws Exception {
-        when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createTwoCrimesDTO());
+        when(crimeService.filterCrimes(any(CrimeFilter.class))).thenReturn(createTwoCrimesDTO());
 
         mockMvc.perform(get("/crimes"))
                 .andExpect(status().isOk())
