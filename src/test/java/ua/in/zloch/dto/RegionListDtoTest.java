@@ -13,13 +13,11 @@ public class RegionListDtoTest {
         regionDTO.setId(1);
         regionDTO.setName("Frankivsky");
         regionDTO.setKoatuu(12345l);
-        regionDTO.setBoundaries("[]");
 
         assertNotNull(regionDTO);
         assertEquals((long) 1, regionDTO.getId());
         assertEquals("Frankivsky", regionDTO.getName());
         assertEquals(12345l, regionDTO.getKoatuu());
-        assertEquals("[]", regionDTO.getBoundaries());
     }
 
 }

@@ -8,7 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import ua.in.zloch.dto.RegionDTO;
-import ua.in.zloch.repository.definition.RegionDAO;
+import ua.in.zloch.repository.RegionRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 public class RegionServiceTest {
 
     @Mock
-    private RegionDAO regionDAO;
+    private RegionRepository regionRepository;
 
     @Mock
     private ConversionService conversionService;

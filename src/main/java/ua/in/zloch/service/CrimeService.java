@@ -1,27 +1,26 @@
 package ua.in.zloch.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.ConversionService;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.entity.Crime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.in.zloch.repository.definition.*;
-import ua.in.zloch.repository.dto.CrimeFilter;
-
-import java.util.List;
+import ua.in.zloch.repository.CrimeRepository;
+import ua.in.zloch.dto.CrimeFilter;
 
 @Service
 public class CrimeService {
-    private CrimeDAO crimeDAO;
+
+    private CrimeRepository crimeRepository;
     private ConversionService conversionService;
 
     @Autowired
-    public CrimeService(CrimeDAO crimeDAO, ConversionService conversionService) {
-        this.crimeDAO = crimeDAO;
+    public CrimeService(CrimeRepository crimeRepository, ConversionService conversionService) {
+        this.crimeRepository = crimeRepository;
         this.conversionService = conversionService;
     }
 
     public CrimeListDTO filterCrimes(CrimeFilter filter) {
-        return conversionService.convert(crimeDAO.search(filter), CrimeListDTO.class);
+        return conversionService.convert(crimeRepository.search(filter), CrimeListDTO.class);
     }
 }

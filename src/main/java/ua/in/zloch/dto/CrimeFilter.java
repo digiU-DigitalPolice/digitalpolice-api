@@ -1,4 +1,4 @@
-package ua.in.zloch.repository.dto;
+package ua.in.zloch.dto;
 
 import java.util.Date;
 import java.util.List;
@@ -8,7 +8,6 @@ public class CrimeFilter {
     private List<Long> categories;
     private Date dateFrom;
     private Date dateTo;
-    private int zoom;
 
     public List<Long> getRegions() {
         return regions;
@@ -42,11 +41,4 @@ public class CrimeFilter {
         this.dateTo = new java.util.Date(dateToUnixtime);
     }
 
-    public int getZoom() {
-        return zoom;
-    }
-
-    public void setZoom(int zoom) {
-        this.zoom = zoom;
-    }
 }

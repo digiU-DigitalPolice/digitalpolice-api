@@ -16,6 +16,7 @@ public class Category implements Serializable {
     private String description;
     private String color;
     private String image;
+    @Column(name = "imagethumb")
     private String imageThumb;
     private boolean visible;
     private boolean trusted;

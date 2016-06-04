@@ -14,7 +14,6 @@ public class RegionToRegionDtoConverter implements Converter<Region, RegionDTO> 
         dto.setId(region.getId());
         dto.setName(region.getName());
         dto.setKoatuu(region.getKoatuu());
-        dto.setBoundaries(region.getBoundaries());
         return dto;
     }
 }
