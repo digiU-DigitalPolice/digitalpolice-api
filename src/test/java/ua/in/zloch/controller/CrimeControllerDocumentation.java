@@ -2,7 +2,8 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.service.MapService;
+import ua.in.zloch.repository.dto.CrimeFilter;
+import ua.in.zloch.service.CrimeService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentation;
@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 import static org.mockito.Matchers.any;
@@ -45,10 +44,7 @@ public class CrimeControllerDocumentation {
     public RestDocumentation restDocumentation = new RestDocumentation("target/generated-snippets");
 
     @Mock
-    private MapService mapService;
-
-    @Mock
-    private ConversionService conversionService;
+    private CrimeService crimeService;
 
     @InjectMocks
     private CrimeController crimeController;
@@ -68,8 +64,8 @@ public class CrimeControllerDocumentation {
     }
 
     @Test
-    public void testGetCrimesMap() throws Exception {
-        when(conversionService.convert(any(List.class), any(Class.class))).thenReturn(createCrimeDTO());
+    public void testGetCrimes() throws Exception {
+        when(crimeService.filterCrimes(any(CrimeFilter.class))).thenReturn(createCrimeDTO());
 
         mockMvc.perform(get("/crimes")
                 .accept(MediaType.APPLICATION_JSON)

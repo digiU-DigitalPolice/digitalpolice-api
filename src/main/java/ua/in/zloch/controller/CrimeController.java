@@ -2,27 +2,24 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.dto.CrimeListDTO;
 import ua.in.zloch.repository.dto.CrimeFilter;
-import ua.in.zloch.service.MapService;
+import ua.in.zloch.service.CrimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CrimeController {
 
-    private MapService mapService;
-    private ConversionService conversionService;
+    private CrimeService crimeService;
 
     @Autowired
-    public CrimeController(MapService mapService, ConversionService conversionService) {
-        this.mapService = mapService;
-        this.conversionService = conversionService;
+    public CrimeController(CrimeService crimeService) {
+        this.crimeService = crimeService;
     }
 
     @RequestMapping("/crimes")
     public CrimeListDTO filterCrimes(CrimeFilter filter){
-        return conversionService.convert(mapService.filterCrimes(filter), CrimeListDTO.class);
+        return crimeService.filterCrimes(filter);
     }
 
 }

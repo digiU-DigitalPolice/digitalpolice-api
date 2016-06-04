@@ -3,7 +3,6 @@ package ua.in.zloch.controller;
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CategoryDTO;
 import ua.in.zloch.service.CategoryService;
-import ua.in.zloch.service.MapService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

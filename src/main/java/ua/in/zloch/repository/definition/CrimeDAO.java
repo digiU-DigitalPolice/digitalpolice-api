@@ -7,5 +7,5 @@ import ua.in.zloch.repository.dto.CrimeFilter;
 import java.util.List;
 
 public interface CrimeDAO extends GenericDAO<Crime,Long> {
-    public List<Crime> search(CrimeFilter filter);
+    List<Crime> search(CrimeFilter filter);
 }
