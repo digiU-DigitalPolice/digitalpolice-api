@@ -6,25 +6,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.TypeDescriptor;
-import ua.in.zloch.dto.CategoryDTO;
+import ua.in.zloch.dto.CrimeFilter;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.repository.definition.CrimeDAO;
-import ua.in.zloch.repository.dto.CrimeFilter;
+import ua.in.zloch.repository.CrimeRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 
 public class CrimeServiceTest {
 
     @Mock
-    private CrimeDAO crimeDAO;
+    private CrimeRepository crimeRepository;
 
     @Mock
     private ConversionService conversionService;

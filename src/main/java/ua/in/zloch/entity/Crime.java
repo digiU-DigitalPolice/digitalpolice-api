@@ -21,18 +21,6 @@ public class Crime implements Serializable{
     public Crime() {
     }
 
-    public Crime(long id) {
-        this.id = id;
-    }
-
-    public Crime(double latitude, double longitude, Category category, Region region, Date date) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.category = category;
-        this.region = region;
-        this.date = date;
-    }
-
     public Region getRegion() {
         return region;
     }

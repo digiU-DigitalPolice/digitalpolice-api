@@ -6,7 +6,6 @@ public class RegionDTO {
     private long id;
     private String name;
     private long koatuu;
-    private String boundaries;
 
     public long getId() {
         return id;
@@ -32,11 +31,4 @@ public class RegionDTO {
         this.koatuu = koatuu;
     }
 
-    public String getBoundaries() {
-        return boundaries;
-    }
-
-    public void setBoundaries(String boundaries) {
-        this.boundaries = boundaries;
-    }
 }

@@ -2,7 +2,7 @@ package ua.in.zloch.controller;
 
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.dto.CrimeListDTO;
-import ua.in.zloch.repository.dto.CrimeFilter;
+import ua.in.zloch.dto.CrimeFilter;
 import ua.in.zloch.service.CrimeService;
 import org.junit.Before;
 import org.junit.Rule;

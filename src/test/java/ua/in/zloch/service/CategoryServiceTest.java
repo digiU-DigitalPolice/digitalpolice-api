@@ -8,20 +8,21 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import ua.in.zloch.dto.CategoryDTO;
-import ua.in.zloch.repository.definition.CategoryDAO;
+import ua.in.zloch.repository.CategoryRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 public class CategoryServiceTest {
 
     @Mock
-    private CategoryDAO categoryDAO;
+    private CategoryRepository categoryRepository;
 
     @Mock
     private ConversionService conversionService;

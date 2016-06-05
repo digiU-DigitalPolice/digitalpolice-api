@@ -21,7 +21,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
-		<hibernate.version>5.1.0.Final</hibernate.version>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
         <cobertura-plugin-version>2.6</cobertura-plugin-version>
 	</properties>
@@ -36,39 +35,27 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.191</version>
-		</dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
-            <version>1.3.0</version>
 			<scope>test</scope>
 		</dependency>
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
-            <version>1.0.1.RELEASE</version>
             <scope>test</scope>
         </dependency>
 		<dependency>
@@ -95,24 +82,6 @@
       			</resource>
 		</resources>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-        				<execution>
-          					<id>pre-integration-test</id>
-          					<goals>
-            						<goal>start</goal>
-          					</goals>
-        				</execution>
-        				<execution>
-          					<id>post-integration-test</id>
-          					<goals>
-            						<goal>stop</goal>
-          					</goals>
-        				</execution>
-      				</executions>
-			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -148,7 +117,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>

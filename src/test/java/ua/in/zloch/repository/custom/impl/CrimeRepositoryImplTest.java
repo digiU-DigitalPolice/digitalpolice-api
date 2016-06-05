@@ -1,4 +1,4 @@
-package ua.in.zloch.repository.hibernate;
+package ua.in.zloch.repository.custom.impl;
 
 import org.junit.After;
 import org.junit.Test;
@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.in.zloch.CityPoliceApplication;
+import ua.in.zloch.dto.CrimeFilter;
 import ua.in.zloch.entity.Category;
 import ua.in.zloch.entity.Crime;
 import ua.in.zloch.entity.Region;
-import ua.in.zloch.repository.definition.CategoryDAO;
-import ua.in.zloch.repository.definition.CrimeDAO;
-import ua.in.zloch.repository.definition.RegionDAO;
-import ua.in.zloch.repository.dto.CrimeFilter;
+import ua.in.zloch.repository.CategoryRepository;
+import ua.in.zloch.repository.CrimeRepository;
+import ua.in.zloch.repository.RegionRepository;
 
 import java.util.*;
 
@@ -21,32 +21,32 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(CityPoliceApplication.class)
-public class CrimeHibernateDAOTest {
+public class CrimeRepositoryImplTest {
 
     @Autowired
-    private CrimeDAO crimeDAO;
+    private CrimeRepository crimeRepository;
 
     @Autowired
-    private CategoryDAO categoryDAO;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    private RegionDAO regionDAO;
+    private RegionRepository regionRepository;
 
     @After
     public void cleanUp() {
-        Iterator<Crime> crimeIterator = crimeDAO.getAll().iterator();
+        Iterator<Crime> crimeIterator = crimeRepository.findAll().iterator();
         while (crimeIterator.hasNext()) {
-            crimeDAO.delete(crimeIterator.next());
+            crimeRepository.delete(crimeIterator.next());
         }
 
-        Iterator<Category> categoryIterator = categoryDAO.getAll().iterator();
+        Iterator<Category> categoryIterator = categoryRepository.findAll().iterator();
         while (categoryIterator.hasNext()) {
-            categoryDAO.delete(categoryIterator.next());
+            categoryRepository.delete(categoryIterator.next());
         }
 
-        Iterator<Region> regionIterator = regionDAO.getAll().iterator();
+        Iterator<Region> regionIterator = regionRepository.findAll().iterator();
         while (regionIterator.hasNext()) {
-            regionDAO.delete(regionIterator.next());
+            regionRepository.delete(regionIterator.next());
         }
     }
 
@@ -57,7 +57,7 @@ public class CrimeHibernateDAOTest {
         createCrime();
 
         // When
-        List<Crime> crimeList = crimeDAO.search(new FilterBuilder().build());
+        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().build());
 
         // Then
         assertNotNull(crimeList);
@@ -71,7 +71,7 @@ public class CrimeHibernateDAOTest {
         createCrime(1300000000);
 
         // When
-        List<Crime> crimeList = crimeDAO.search(new FilterBuilder().withDateFrom(1200000000).build());
+        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().withDateFrom(1200000000).build());
 
         // Then
         assertNotNull(crimeList);
@@ -86,7 +86,7 @@ public class CrimeHibernateDAOTest {
         createCrime(1300000000);
 
         // When
-        List<Crime> crimeList = crimeDAO.search(new FilterBuilder().withDateTo(1200000000).build());
+        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().withDateTo(1200000000).build());
 
         // Then
         assertNotNull(crimeList);
@@ -106,7 +106,7 @@ public class CrimeHibernateDAOTest {
         createCrime(fraud);
 
         // When
-        List<Crime> crimeList = crimeDAO.search(new FilterBuilder().withCategories(robbery.getId(), fraud.getId()).build());
+        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().withCategories(robbery.getId(), fraud.getId()).build());
 
         // Then
         assertNotNull(crimeList);
@@ -129,7 +129,7 @@ public class CrimeHibernateDAOTest {
         createCrime(district3);
 
         // When
-        List<Crime> crimeList = crimeDAO.search(new FilterBuilder().withRegions(district1.getKoatuu(), district3.getKoatuu()).build());
+        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().withRegions(district1.getKoatuu(), district3.getKoatuu()).build());
 
         // Then
         assertNotNull(crimeList);
@@ -151,13 +151,13 @@ public class CrimeHibernateDAOTest {
     private void createCrime(Region region) {
         Crime crime = newCrime();
         crime.setRegion(region);
-        crimeDAO.create(crime);
+        crimeRepository.save(crime);
     }
 
     private Region createRegion(Long koatuu) {
         Region region = new Region();
         region.setKoatuu(koatuu);
-        regionDAO.create(region);
+        regionRepository.save(region);
         return region;
     }
 
@@ -172,7 +172,7 @@ public class CrimeHibernateDAOTest {
     private Category createCategory(String name) {
         Category category = new Category();
         category.setTitle(name);
-        categoryDAO.create(category);
+        categoryRepository.save(category);
         return category;
     }
 
@@ -189,11 +189,11 @@ public class CrimeHibernateDAOTest {
     private void createCrime(Category category) {
         Crime crime = newCrime();
         crime.setCategory(category);
-        crimeDAO.create(crime);
+        crimeRepository.save(crime);
     }
 
     private void createCrime(long timestamp) {
-        crimeDAO.create(newCrime(timestamp));
+        crimeRepository.save(newCrime(timestamp));
     }
 
     private void createCrime() {

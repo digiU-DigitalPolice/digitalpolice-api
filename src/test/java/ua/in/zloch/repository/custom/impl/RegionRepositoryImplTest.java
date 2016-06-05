@@ -1,4 +1,4 @@
-package ua.in.zloch.repository.hibernate;
+package ua.in.zloch.repository.custom.impl;
 
 import org.junit.After;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.in.zloch.CityPoliceApplication;
 import ua.in.zloch.entity.Region;
-import ua.in.zloch.repository.definition.RegionDAO;
+import ua.in.zloch.repository.RegionRepository;
 
 import java.util.*;
 
@@ -16,16 +16,16 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(CityPoliceApplication.class)
-public class RegionHibernateDAOTest {
+public class RegionRepositoryImplTest {
 
     @Autowired
-    private RegionDAO regionDAO;
+    private RegionRepository regionRepository;
 
     @After
     public void cleanUp() {
-        Iterator<Region> regionIterator = regionDAO.getAll().iterator();
+        Iterator<Region> regionIterator = regionRepository.findAll().iterator();
         while (regionIterator.hasNext()) {
-            regionDAO.delete(regionIterator.next());
+            regionRepository.delete(regionIterator.next());
         }
     }
 
@@ -34,7 +34,7 @@ public class RegionHibernateDAOTest {
         createRegion(123l);
         createRegion(234l);
 
-        List<Region> regionList = regionDAO.search(null);
+        List<Region> regionList = regionRepository.search(null);
 
         assertNotNull(regionList);
         assertEquals(2, regionList.size());
@@ -46,7 +46,7 @@ public class RegionHibernateDAOTest {
         createRegion(234l);
         createRegion(345l);
 
-        List<Region> regionList = regionDAO.search(Arrays.asList(new Long[]{123l, 234l}));
+        List<Region> regionList = regionRepository.search(Arrays.asList(123l, 234l));
 
         assertNotNull(regionList);
         assertEquals(2, regionList.size());
@@ -66,6 +66,6 @@ public class RegionHibernateDAOTest {
     private void createRegion(long koatuu) {
         Region region = new Region();
         region.setKoatuu(koatuu);
-        regionDAO.create(region);
+        regionRepository.save(region);
     }
 }
