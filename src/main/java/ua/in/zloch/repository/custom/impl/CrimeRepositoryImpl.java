@@ -1,18 +1,23 @@
 package ua.in.zloch.repository.custom.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import ua.in.zloch.dto.CrimeFilter;
-import ua.in.zloch.entity.Crime;
-import ua.in.zloch.repository.custom.CrimeRepositoryCustom;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Date;
-import java.util.List;
 
-public class CrimeRepositoryImpl implements CrimeRepositoryCustom {
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ua.in.zloch.dto.CrimeFilter;
+import ua.in.zloch.entity.Crime;
+import ua.in.zloch.repository.custom.CrimeRepositoryCustom;
+
+public class CrimeRepositoryImpl
+    implements CrimeRepositoryCustom {
 
     @Autowired
     private EntityManager em;
@@ -23,14 +28,19 @@ public class CrimeRepositoryImpl implements CrimeRepositoryCustom {
         CriteriaQuery<Crime> query = builder.createQuery(Crime.class);
         Root<Crime> crime = query.from(Crime.class);
 
-        if(filter.getDateFrom() != null)
-            query.where(builder.greaterThanOrEqualTo(crime.<Date>get("date"), filter.getDateFrom()));
-        if(filter.getDateTo() != null)
-            query.where(builder.lessThanOrEqualTo(crime.<Date>get("date"), filter.getDateTo()));
-        if(filter.getCategories() != null && filter.getCategories().size() > 0)
-            query.where(crime.get("category").get("id").in(filter.getCategories()));
-        if(filter.getRegions() != null && filter.getRegions().size() > 0)
-            query.where(crime.get("region").get("koatuu").in(filter.getRegions()));
+        List<Predicate> predicateList = new LinkedList<Predicate>();
+
+        if (filter.getDateFrom() != null)
+            predicateList.add(builder.greaterThanOrEqualTo(crime.<Date>get("date"), filter.getDateFrom()));
+        if (filter.getDateTo() != null)
+            predicateList.add(builder.lessThanOrEqualTo(crime.<Date>get("date"), filter.getDateTo()));
+        if (filter.getCategories() != null && filter.getCategories().size() > 0)
+            predicateList.add(crime.get("category").get("id").in(filter.getCategories()));
+        if (filter.getRegions() != null && filter.getRegions().size() > 0)
+            predicateList.add(crime.get("region").get("koatuu").in(filter.getRegions()));
+
+        query.where(predicateList.toArray(new Predicate[predicateList.size()]));
+
         return em.createQuery(query).getResultList();
     }
 }
