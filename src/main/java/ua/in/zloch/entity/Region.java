@@ -8,8 +8,7 @@ public class Region implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne(optional = true)
-    private Region parent;
+
     private String name;
     private Long koatuu;
 
@@ -22,14 +21,6 @@ public class Region implements Serializable{
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Region getParent() {
-        return parent;
-    }
-
-    public void setParent(Region parent) {
-        this.parent = parent;
     }
 
     public String getName() {

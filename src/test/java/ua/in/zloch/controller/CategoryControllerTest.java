@@ -73,10 +73,12 @@ public class CategoryControllerTest {
         CategoryDTO dtoOne = new CategoryDTO();
         dtoOne.setId(123l);
         dtoOne.setTitle("DTP");
+        dtoOne.setParentId(567l);
 
         CategoryDTO dtoTwo = new CategoryDTO();
         dtoTwo.setId(124l);
         dtoTwo.setTitle("Murder");
+        dtoTwo.setParentId(890l);
 
         List<CategoryDTO> dtoList = new ArrayList<>();
         dtoList.add(dtoOne);

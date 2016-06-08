@@ -12,6 +12,9 @@ public class CategoryToCategoryDtoConverter implements Converter<Category, Categ
         CategoryDTO dto = new CategoryDTO();
         dto.setId(category.getId());
         dto.setTitle(category.getTitle());
+        if(category.getParent() != null) {
+            dto.setParentId(category.getParent().getId());
+        }
         return dto;
     }
 }
