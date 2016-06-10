@@ -12,7 +12,7 @@ public class GeohashProcessor implements ItemProcessor<Crime, Crime> {
 
     @Override
     public Crime process(Crime crime) throws Exception {
-        String hash = GeoHash.withBitPrecision(crime.getLatitude(), crime.getLongitude(), 55).toBase32();
+        String hash = GeoHash.withBitPrecision(crime.getLatitude(), crime.getLongitude(), 60).toBase32();
         crime.setGeohash(hash);
         log.info("Geohash for crime: " + crime.getId() + " is: " + hash);
         return crime;

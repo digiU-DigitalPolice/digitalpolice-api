@@ -1,0 +1,1 @@
+ALTER TABLE test_schema.crime ALTER COLUMN geohash TYPE varchar(12);
