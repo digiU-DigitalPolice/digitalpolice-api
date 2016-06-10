@@ -40,22 +40,22 @@ public class GeohashJobConfigurationTest {
     }
 
     @Test
-    public void shouldImportStores() throws Exception {
+    public void testGeohashJobSetsGeohashesToCrimes() throws Exception {
         // Given
-        Long crimeOneId = createCrime("already_calculated");
+        Long crimeOneId = createCrime("already_set");
         Long crimeTwoId = createCrime(null);
         Long crimeThreeId = createCrime(null);
 
         // When
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-        StepExecution firstStepExecution = jobExecution.getStepExecutions().iterator().next();
 
         // Then
         assertThat("job execution status", jobExecution.getExitStatus(), is(ExitStatus.COMPLETED));
+        StepExecution firstStepExecution = jobExecution.getStepExecutions().iterator().next();
         assertThat("job read count", firstStepExecution.getReadCount(), is(2));
 
         Crime one = crimeRepository.findOne(crimeOneId);
-        assertEquals("already_calculated", one.getGeohash());
+        assertEquals("already_set", one.getGeohash());
 
         Crime two = crimeRepository.findOne(crimeTwoId);
         assertNotNull(two.getGeohash());
