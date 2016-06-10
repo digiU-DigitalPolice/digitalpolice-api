@@ -11,6 +11,7 @@ public class Crime implements Serializable {
     private long id;
     private double latitude;
     private double longitude;
+    @Column(length = 12)
     private String geohash;
     @OneToOne
     private Category category;
