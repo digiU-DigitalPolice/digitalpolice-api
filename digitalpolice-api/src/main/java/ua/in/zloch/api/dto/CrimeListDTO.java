@@ -27,6 +27,7 @@ public class CrimeListDTO {
         public static final String CATEGORY_ID = "category.id";
         public static final String REGION_NAME = "region.name";
         public static final String REGION_KOATUU = "region.koatuu";
+        private static final String COUNT = "count";
 
         private Type type;
         private Geometry geometry;
@@ -74,6 +75,10 @@ public class CrimeListDTO {
 
         public void setRegionKoatuu(Long regionKoatuu) {
             this.properties.put(REGION_KOATUU, regionKoatuu);
+        }
+
+        public void setCount(long count){
+            this.properties.put(COUNT, count);
         }
     }
 

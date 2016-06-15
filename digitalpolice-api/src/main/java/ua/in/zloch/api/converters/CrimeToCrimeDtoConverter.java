@@ -14,8 +14,12 @@ public class CrimeToCrimeDtoConverter implements Converter<List<Crime>, CrimeLis
             CrimeListDTO.CrimeDTO dto = new CrimeListDTO().new CrimeDTO();
             dto.setCoordinates(crime.getLongitude(), crime.getLatitude());
             dto.setId(crime.getId());
-            dto.setDate(crime.getDate());
-            dto.setCategoryId(crime.getCategory().getId());
+            if(crime.getDate() != null){
+                dto.setDate(crime.getDate());
+            }
+            if(crime.getCategory() != null){
+                dto.setCategoryId(crime.getCategory().getId());
+            }
             if (crime.getRegion() != null) {
                 dto.setRegionName(crime.getRegion().getName());
                 dto.setRegionKoatuu(crime.getRegion().getKoatuu());
@@ -23,6 +27,7 @@ public class CrimeToCrimeDtoConverter implements Converter<List<Crime>, CrimeLis
                 dto.setRegionName("undefined");
                 dto.setRegionKoatuu(0l);
             }
+            dto.setCount(crime.getCount());
 
             dtoList.addFeature(dto);
         }

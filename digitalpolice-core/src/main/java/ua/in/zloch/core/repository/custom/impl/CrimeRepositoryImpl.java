@@ -6,12 +6,10 @@ import ua.in.zloch.core.entity.Crime;
 import ua.in.zloch.core.repository.custom.CrimeRepositoryCustom;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.Tuple;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CrimeRepositoryImpl
@@ -22,22 +20,60 @@ public class CrimeRepositoryImpl
 
     @Override
     public List<Crime> search(CrimeFilter filter) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Crime> query = builder.createQuery(Crime.class);
-        Root<Crime> crime = query.from(Crime.class);
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Crime> query= cb.createQuery(Crime.class);
+        Root<Crime> c = query.from(Crime.class);
 
-        List<Predicate> predicateList = new LinkedList<Predicate>();
+        Expression<Long> crimeId = c.get("id");
+        Expression<Long> count = cb.count(crimeId);
 
-        if (filter.getDateFrom() != null)
-            predicateList.add(builder.greaterThanOrEqualTo(crime.<Date>get("date"), filter.getDateFrom()));
-        if (filter.getDateTo() != null)
-            predicateList.add(builder.lessThanOrEqualTo(crime.<Date>get("date"), filter.getDateTo()));
-        if (filter.getCategories() != null && filter.getCategories().size() > 0)
-            predicateList.add(crime.get("category").get("id").in(filter.getCategories()));
-        if (filter.getRegions() != null && filter.getRegions().size() > 0)
-            predicateList.add(crime.get("region").get("koatuu").in(filter.getRegions()));
+        Expression<Double> latitude = c.get("latitude");
+        Expression<Double> avgLatitude = cb.avg(latitude);
 
+        Expression<Double> longitude = c.get("longitude");
+        Expression<Double> avgLongitude = cb.avg(longitude);
+
+        Expression<String> geohash = c.get("geohash");
+        Expression<String> geohashSub = cb.substring(geohash, 1, filter.getPrecision());
+
+        Expression<Long> category = c.get("category");
+        Expression<Long> region = c.get("region");
+
+        Predicate latitudeBetween = cb.between(latitude, filter.getSouthWest().getLatitude(), filter.getNorthEast().getLatitude());
+        Predicate longitudeBetween = cb.between(longitude, filter.getSouthWest().getLongitude(), filter.getNorthEast().getLongitude());
+
+        List<Selection> selectionList = new ArrayList<Selection>();
+        selectionList.add(count.alias("count"));
+        selectionList.add(avgLatitude.alias("latitude"));
+        selectionList.add(avgLongitude.alias("longitude"));
+
+        List<Expression> groupingList = new ArrayList<Expression>();
+        groupingList.add(geohashSub);
+
+        List<Predicate> predicateList = new ArrayList<Predicate>();
+        predicateList.add(latitudeBetween);
+        predicateList.add(longitudeBetween);
+
+        if (filter.getDateFrom() != null) {
+            predicateList.add(cb.greaterThanOrEqualTo(c.<Date>get("date"), filter.getDateFrom()));
+        }
+        if (filter.getDateTo() != null) {
+            predicateList.add(cb.lessThanOrEqualTo(c.<Date>get("date"), filter.getDateTo()));
+        }
+        if (filter.getCategories() != null && filter.getCategories().size() > 0) {
+            predicateList.add(category.in(filter.getCategories()));
+            groupingList.add(category);
+            selectionList.add(category.alias("category"));
+        }
+        if (filter.getRegions() != null && filter.getRegions().size() > 0) {
+            predicateList.add(region.in(filter.getRegions()));
+            groupingList.add(region);
+            selectionList.add(region.alias("region"));
+        }
+
+        query.multiselect(selectionList.toArray(new Selection[selectionList.size()]));
         query.where(predicateList.toArray(new Predicate[predicateList.size()]));
+        query.groupBy(groupingList.toArray(new Expression[groupingList.size()]));
 
         return em.createQuery(query).getResultList();
     }
