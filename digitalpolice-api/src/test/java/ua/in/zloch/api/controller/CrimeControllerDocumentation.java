@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ua.in.zloch.api.CityPoliceApplication;
 import ua.in.zloch.api.dto.CrimeListDTO;
+import ua.in.zloch.api.dto.CrimeSearchParameters;
 import ua.in.zloch.api.service.CrimeService;
 import ua.in.zloch.core.dto.CrimeFilter;
 
@@ -66,24 +67,34 @@ public class CrimeControllerDocumentation {
 
     @Test
     public void testGetCrimes() throws Exception {
-        when(crimeService.filterCrimes(any(CrimeFilter.class))).thenReturn(createCrimeDTO());
+        when(crimeService.filterCrimes(any(CrimeSearchParameters.class))).thenReturn(createCrimeDTO());
 
         mockMvc.perform(get("/crimes")
                 .accept(MediaType.APPLICATION_JSON)
+                .param("southWest.latitude", "49.83740120522326")
+                .param("southWest.longitude", "24.003539085388184")
+                .param("northEast.latitude", "49.85323079319976")
+                .param("northEast.longitude", "24.057998657226562")
+                .param("precision", "5")
                 .param("dateFrom", "1420070400") // 2015/01/01
                 .param("dateTo", "1451520000") // 2015/12/31
                 .param("categories", "1,2,3")
-                .param("regionIds", "4610136300,2"))
-                .andExpect(status().isOk())
+                .param("regions", "4610136300,2")
+        ).andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true))
                 .andDo(document("get-map",
                         preprocessResponse(prettyPrint()),
                         requestParameters(
+                                parameterWithName("southWest.latitude").attributes().description("Обовязковий параметер! Широта крайньої південно-західної точки на мапі, якою обмежується бажаний регіон"),
+                                parameterWithName("southWest.longitude").attributes().description("Обовязковий параметер!Довгота крайньої південно-західної точки на мапі, якою обмежується бажаний регіон"),
+                                parameterWithName("northEast.latitude").attributes().description("Обовязковий параметер!Широта крайньої північно-східної точки на мапі, якою обмежується бажаний регіон."),
+                                parameterWithName("northEast.longitude").attributes().description("Обовязковий параметер!Довгота крайньої північно-східної точки на мапі, якою обмежується бажаний регіон."),
+                                parameterWithName("precision").attributes().description("Обовязковий параметер! Значення приближення на мапі, або порядку групування точок. Від 1 до 12, де 1 - максимальне групування, 12 - жодна точка не групується."),
                                 parameterWithName("dateFrom").attributes().description("Початкова дата, від якої шукати злочини. Формат дати - unixtime в мілісекундах (long, число мілісекунд (!не секунд) з Jan 1, 1970)"),
-                                parameterWithName("dateTo").description("Кінцева дата, до якої шукати злочини. Формат дати - unixtime в мілісекундах (long, число мілісекунд (!не секунд) з Jan 1, 1970)"),
+                                parameterWithName("dateTo").attributes().description("Кінцева дата, до якої шукати злочини. Формат дати - unixtime в мілісекундах (long, число мілісекунд (!не секунд) з Jan 1, 1970)"),
                                 parameterWithName("categories").description("id категорій до яких відносяться злочини, перелічені через кому"),
-                                parameterWithName("regionIds").description("koatuu-коди регіонів, у яких відбулись злочини, перелічені через кому")
+                                parameterWithName("regions").description("koatuu-коди регіонів, у яких відбулись злочини, перелічені через кому")
                         )));
     }
 

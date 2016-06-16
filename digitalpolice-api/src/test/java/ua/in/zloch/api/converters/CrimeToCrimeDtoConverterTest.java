@@ -37,6 +37,7 @@ public class CrimeToCrimeDtoConverterTest {
         expectedProperties.put("category.id", 394l);
         expectedProperties.put("region.name", "ЗАЛІЗНИЧНИЙ");
         expectedProperties.put("region.koatuu", 4610136300l);
+        expectedProperties.put("count", 2l);
 
         assertEqualsMapEpsilon(expectedProperties, crimeDTO.getProperties());
     }
@@ -77,6 +78,7 @@ public class CrimeToCrimeDtoConverterTest {
         crime.setDate(new Date(1456175351l));
         crime.setCategory(createTestCategory());
         crime.setRegion(createTestRegion());
+        crime.setCount(2l);
         return crime;
     }
 

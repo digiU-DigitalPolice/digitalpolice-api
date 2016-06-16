@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.convert.ConversionService;
 import ua.in.zloch.api.dto.CrimeListDTO;
+import ua.in.zloch.api.dto.CrimeSearchParameters;
 import ua.in.zloch.core.dto.CrimeFilter;
 import ua.in.zloch.core.repository.CrimeRepository;
 
@@ -38,7 +39,7 @@ public class CrimeServiceTest {
         when(conversionService.convert(any(ArrayList.class), eq(CrimeListDTO.class)))
                 .thenReturn(new CrimeListDTO());
 
-        CrimeListDTO crimesListDTO = crimeService.filterCrimes(new CrimeFilter());
+        CrimeListDTO crimesListDTO = crimeService.filterCrimes(new CrimeSearchParameters());
 
         assertNotNull(crimesListDTO);
     }

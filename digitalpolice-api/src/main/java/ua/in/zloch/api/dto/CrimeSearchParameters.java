@@ -1,15 +1,16 @@
-package ua.in.zloch.core.dto;
+package ua.in.zloch.api.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-public class CrimeFilter {
+public class CrimeSearchParameters {
     private List<Long> regions;
     private List<Long> categories;
     private Date dateFrom;
     private Date dateTo;
-    private Point southWest;
-    private Point northEast;
+    private PointParameter southWest;
+    private PointParameter northEast;
     private int precision;
 
     public List<Long> getRegions() {
@@ -32,31 +33,31 @@ public class CrimeFilter {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setDateFrom(long dateFrom) {
+        this.dateFrom = new Date(dateFrom);
     }
 
     public Date getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
+    public void setDateTo(long dateTo) {
+        this.dateTo = new Date(dateTo);
     }
 
-    public Point getSouthWest() {
+    public PointParameter getSouthWest() {
         return southWest;
     }
 
-    public void setSouthWest(Point southWest) {
+    public void setSouthWest(PointParameter southWest) {
         this.southWest = southWest;
     }
 
-    public Point getNorthEast() {
+    public PointParameter getNorthEast() {
         return northEast;
     }
 
-    public void setNorthEast(Point northEast) {
+    public void setNorthEast(PointParameter northEast) {
         this.northEast = northEast;
     }
 
@@ -67,4 +68,8 @@ public class CrimeFilter {
     public void setPrecision(int precision) {
         this.precision = precision;
     }
+
 }
+
+
+

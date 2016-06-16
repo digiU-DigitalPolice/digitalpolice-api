@@ -20,7 +20,30 @@ public class Crime implements Serializable {
     private Region region;
     private Date date;
 
-    public Crime() {
+    @Transient
+    private long count;
+
+    public Crime(long count, double latitude, double longitude){
+        this(count, latitude, longitude, null, null);
+    }
+
+    public Crime(long count, double latitude, double longitude, Category category){
+        this(count, latitude, longitude, category, null);
+    }
+
+    public Crime(long count, double latitude, double longitude, Region region){
+        this(count, latitude, longitude, null, region);
+    }
+
+    public Crime(long count, double latitude, double longitude, Category category, Region region){
+        this.count = count;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.category = category;
+        this.region = region;
+    }
+
+    public Crime(){
     }
 
     public Region getRegion() {
@@ -77,5 +100,13 @@ public class Crime implements Serializable {
 
     public void setGeohash(String geohash) {
         this.geohash = geohash;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     }
 }
