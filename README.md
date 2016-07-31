@@ -42,7 +42,7 @@ mvn test
 #### Як запустити проект на локальному компютері
 
 ```
-java -jar target/citypolice-0.0.1-SNAPSHOT.jar
+java -jar digitalpolice-api/target/digitalpolice-api-0.0.1-SNAPSHOT.jar
 ```
 
 ### REST документація
