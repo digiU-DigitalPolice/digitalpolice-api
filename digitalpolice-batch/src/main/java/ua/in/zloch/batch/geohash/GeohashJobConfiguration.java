@@ -40,7 +40,7 @@ public class GeohashJobConfiguration {
     @Bean
     public Step step() {
         return stepBuilderFactory.get("step")
-                .<Crime, Crime>chunk(1000)
+                .<Crime, Crime>chunk(100)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
