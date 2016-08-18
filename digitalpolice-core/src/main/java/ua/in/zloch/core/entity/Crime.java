@@ -11,8 +11,6 @@ public class Crime implements Serializable {
     private long id;
     private double latitude;
     private double longitude;
-    @Column(length = 12)
-    private String geohash;
     @OneToOne
     private Category category;
     @OneToOne
@@ -20,23 +18,19 @@ public class Crime implements Serializable {
     private Region region;
     private Date date;
 
-    @Transient
-    private long count;
-
-    public Crime(long count, double latitude, double longitude){
-        this(count, latitude, longitude, null, null);
+    public Crime(double latitude, double longitude){
+        this(latitude, longitude, null, null);
     }
 
-    public Crime(long count, double latitude, double longitude, Category category){
-        this(count, latitude, longitude, category, null);
+    public Crime(double latitude, double longitude, Category category){
+        this(latitude, longitude, category, null);
     }
 
-    public Crime(long count, double latitude, double longitude, Region region){
-        this(count, latitude, longitude, null, region);
+    public Crime(double latitude, double longitude, Region region){
+        this(latitude, longitude, null, region);
     }
 
-    public Crime(long count, double latitude, double longitude, Category category, Region region){
-        this.count = count;
+    public Crime(double latitude, double longitude, Category category, Region region){
         this.latitude = latitude;
         this.longitude = longitude;
         this.category = category;
@@ -94,19 +88,4 @@ public class Crime implements Serializable {
         this.date = date;
     }
 
-    public String getGeohash() {
-        return geohash;
-    }
-
-    public void setGeohash(String geohash) {
-        this.geohash = geohash;
-    }
-
-    public long getCount() {
-        return count;
-    }
-
-    public void setCount(long count) {
-        this.count = count;
-    }
 }

@@ -17,7 +17,6 @@ import ua.in.zloch.api.CityPoliceApplication;
 import ua.in.zloch.api.dto.CrimeListDTO;
 import ua.in.zloch.api.dto.CrimeSearchParameters;
 import ua.in.zloch.api.service.CrimeService;
-import ua.in.zloch.core.dto.CrimeFilter;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -52,7 +51,7 @@ public class CrimeControllerTest {
     public void testGetUnfilteredCrimesList() throws Exception {
         when(crimeService.filterCrimes(any(CrimeSearchParameters.class))).thenReturn(createTwoCrimesDTO());
 
-        mockMvc.perform(get("/crimes?southWest.latitude=1&southWest.longitude=1&northEast.latitude=1&northEast.longitude=1&precision=5"))
+        mockMvc.perform(get("/crimes?southWest.latitude=1&southWest.longitude=1&northEast.latitude=1&northEast.longitude=1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true));

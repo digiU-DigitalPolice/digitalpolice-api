@@ -9,7 +9,6 @@ public class CrimeFilter {
     private Date dateTo;
     private Point southWest;
     private Point northEast;
-    private int precision;
 
     public List<Long> getCategories() {
         return categories;
@@ -51,11 +50,4 @@ public class CrimeFilter {
         this.northEast = northEast;
     }
 
-    public int getPrecision() {
-        return precision;
-    }
-
-    public void setPrecision(int precision) {
-        this.precision = precision;
-    }
 }

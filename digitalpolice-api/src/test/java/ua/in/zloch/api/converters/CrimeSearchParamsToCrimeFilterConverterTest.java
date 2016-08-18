@@ -18,7 +18,6 @@ public class CrimeSearchParamsToCrimeFilterConverterTest {
     public void testConvert() throws Exception {
         CrimeFilter crimeFilter = converter.convert(createCrimeSearchParameters());
         assertNotNull(crimeFilter);
-        assertEquals(3, crimeFilter.getPrecision());
         assertEquals(1456175351l, crimeFilter.getDateFrom().getTime());
         assertEquals(1456175782l, crimeFilter.getDateTo().getTime());
         assertEquals(24.11, crimeFilter.getSouthWest().getLatitude(), 0.0);
@@ -41,7 +40,6 @@ public class CrimeSearchParamsToCrimeFilterConverterTest {
         northEast.setLongitude(50.73);
         params.setNorthEast(northEast);
 
-        params.setPrecision(3);
         params.setDateFrom(1456175351l);
         params.setDateTo(1456175782l);
         params.setCategories(Arrays.asList(35l, 17l, 21l));

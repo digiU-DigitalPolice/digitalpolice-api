@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.in.zloch.core.CoreContextConfig;
 import ua.in.zloch.core.dto.CrimeFilter;
@@ -179,114 +177,31 @@ public class CrimeRepositoryImplTest {
     }
 
     @Test
-    public void testFindAllCrimesWhereGeohashIsNull() {
-        // Given
-        new CrimeBuilder().withGeohash("u8c5ddr1tfzy").save();
-        new CrimeBuilder().withGeohash(null).save();
-
-        // When
-        Page<Crime> page = crimeRepository.findByGeohashIsNull(new PageRequest(0, 10));
-
-        // Then
-        assertNotNull(page);
-        assertEquals(1, page.getTotalElements());
-        assertNull(page.getContent().get(0).getGeohash());
-    }
-
-    @Test
     public void testFindClusteredCrimesInCityCenter() {
         // Given
         // Vysokyy zamok
-        new CrimeBuilder().withLatitude(49.8484259922661d).withLongitude(24.039148092269897d).withGeohash("u8c5e48u0spg").save();
+        new CrimeBuilder().withLatitude(49.8484259922661d).withLongitude(24.039148092269897d).save();
 
         // Ratusha
-        new CrimeBuilder().withLatitude(49.84162114809589d).withLongitude(24.031708985567093d).withGeohash("u8c5dc7k7rsg").save();
-
-        // When
-        List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
-                .withSouthWest(new Point(49.83740120522326d, 24.003539085388184d))
-                .withNorthEast(new Point(49.85323079319976d, 24.057998657226562d))
-                .withPrecision(4)
-                .build());
-
-        // Then
-        assertEquals(1, crimeList.size());
-        assertEquals(2l, crimeList.get(0).getCount());
-        assertEquals(49.845023570181d, crimeList.get(0).getLatitude(), 0.0);
-        assertEquals(24.035428538918495d, crimeList.get(0).getLongitude(), 0.0);
-
-        // When
-        crimeList = crimeRepository.search(new FilterBuilder()
-                .withSouthWest(new Point(49.83740120522326d, 24.003539085388184d))
-                .withNorthEast(new Point(49.85323079319976d, 24.057998657226562d))
-                .withPrecision(5)
-                .build());
-
-        // Then
-        assertEquals(2, crimeList.size());
-        assertEquals(1l, crimeList.get(0).getCount());
-        assertEquals(1l, crimeList.get(1).getCount());
-    }
-
-    @Test
-    public void testFindClusteredCrimesInCountry() {
-        // Given
-        // Lviv
-        new CrimeBuilder().withLatitude(49.84411151134406d).withLongitude(24.026183634996414d).withGeohash("u8c5d9z6fxuf").save();
+        new CrimeBuilder().withLatitude(49.84162114809589d).withLongitude(24.031708985567093d).save();
 
         //Kyiv
-        new CrimeBuilder().withLatitude(50.448074405401776d).withLongitude(30.525253862142563d).withGeohash("u8vwyxgc3fwv").save();
+        new CrimeBuilder().withLatitude(50.448074405401776d).withLongitude(30.525253862142563d).save();
 
         // When
         List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
                 .withSouthWest(new Point(49.83740120522326d, 24.003539085388184d))
-                .withNorthEast(new Point(50.774681682270334d, 30.7891845703125d))
-                .withPrecision(2)
-                .build());
-
-        // Then
-        assertEquals(1, crimeList.size());
-
-        // When
-        crimeList = crimeRepository.search(new FilterBuilder()
-                .withSouthWest(new Point(49.83740120522326d, 24.003539085388184d))
-                .withNorthEast(new Point(50.774681682270334d, 30.7891845703125d))
-                .withPrecision(3)
+                .withNorthEast(new Point(49.85323079319976d, 24.057998657226562d))
                 .build());
 
         // Then
         assertEquals(2, crimeList.size());
-    }
+        assertEquals(49.8484259922661d, crimeList.get(0).getLatitude(), 0.0);
+        assertEquals(24.039148092269897d, crimeList.get(0).getLongitude(), 0.0);
 
-    @Test
-    public void testFindClusteredCrimesInStreet() {
-        // Given
-        //Kryivka
-        new CrimeBuilder().withLatitude(49.84129205941833d).withLongitude(24.03227761387825d).withGeohash("u8c5dc7f8dkb").save();
+        assertEquals(49.84162114809589d, crimeList.get(1).getLatitude(), 0.0);
+        assertEquals(24.031708985567093d, crimeList.get(1).getLongitude(), 0.0);
 
-        //Ratusha
-        new CrimeBuilder().withLatitude(49.84162114809589d).withLongitude(24.031708985567093d).withGeohash("u8c5dc7k7rsg").save();
-
-
-        // When
-        List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
-                .withSouthWest(new Point(49.841152379841255d, 24.030971378087997d))
-                .withNorthEast(new Point(49.84177769146379d, 24.03269201517105d))
-                .withPrecision(7)
-                .build());
-
-        // Then
-        assertEquals(1, crimeList.size());
-
-        // When
-        crimeList = crimeRepository.search(new FilterBuilder()
-                .withSouthWest(new Point(49.83740120522326d, 24.003539085388184d))
-                .withNorthEast(new Point(50.774681682270334d, 30.7891845703125d))
-                .withPrecision(8)
-                .build());
-
-        // Then
-        assertEquals(2, crimeList.size());
     }
 
     private Region createRegion(Long koatuu) {
@@ -320,7 +235,6 @@ public class CrimeRepositoryImplTest {
             Coordinate coordinate = coordinatesLibrary.nextCoordinate();
             this.crime.setLatitude(coordinate.latitude);
             this.crime.setLongitude(coordinate.longitude);
-            this.crime.setGeohash(coordinate.geohash);
         }
 
         public CrimeBuilder withTimeStamp(long timestamp) {
@@ -348,11 +262,6 @@ public class CrimeRepositoryImplTest {
             return this;
         }
 
-        public CrimeBuilder withGeohash(String geohash) {
-            this.crime.setGeohash(geohash);
-            return this;
-        }
-
         public void save() {
             crimeRepository.save(this.crime);
         }
@@ -369,7 +278,6 @@ public class CrimeRepositoryImplTest {
             filter = new CrimeFilter();
             filter.setSouthWest(new Point(49.83740120522326d, 24.003539085388184d));
             filter.setNorthEast(new Point(49.85323079319976d, 24.057998657226562d));
-            filter.setPrecision(5);
         }
 
         public FilterBuilder withDateFrom(long timestamp) {
@@ -397,28 +305,23 @@ public class CrimeRepositoryImplTest {
             return this;
         }
 
-        public FilterBuilder withPrecision(int precision) {
-            this.filter.setPrecision(precision);
-            return this;
-        }
-
         public CrimeFilter build() {
             return this.filter;
         }
     }
 
     class CoordinatesLibrary {
-        Queue<Coordinate> q = new LinkedList<Coordinate>();
+        Queue<Coordinate> q = new LinkedList<>();
 
         public void init() {
             q.clear();
 
             // Vysokyy zamok
-            q.add(new Coordinate(49.8484259922661d, 24.039148092269897d, "u8c5e48u0spg"));
+            q.add(new Coordinate(49.8484259922661d, 24.039148092269897d));
             // Ratusha
-            q.add(new Coordinate(49.84162114809589d, 24.031708985567093d, "u8c5dc7k7rsg"));
+            q.add(new Coordinate(49.84162114809589d, 24.031708985567093d));
             // Opernyy
-            q.add(new Coordinate(49.84411151134406d, 24.026183634996414d, "u8c5d9z6fxuf"));
+            q.add(new Coordinate(49.84411151134406d, 24.026183634996414d));
         }
 
         public Coordinate nextCoordinate() {
@@ -431,14 +334,12 @@ public class CrimeRepositoryImplTest {
 
     class Coordinate {
 
-        public Coordinate(double latitude, double longitude, String geohash) {
+        public Coordinate(double latitude, double longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
-            this.geohash = geohash;
         }
 
         public double latitude;
         public double longitude;
-        public String geohash;
     }
 }

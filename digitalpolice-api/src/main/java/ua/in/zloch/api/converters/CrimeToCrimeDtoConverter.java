@@ -27,7 +27,6 @@ public class CrimeToCrimeDtoConverter implements Converter<List<Crime>, CrimeLis
                 dto.setRegionName("undefined");
                 dto.setRegionKoatuu(0l);
             }
-            dto.setCount(crime.getCount());
 
             dtoList.addFeature(dto);
         }
