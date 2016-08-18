@@ -19,7 +19,6 @@ import ua.in.zloch.core.repository.CategoryRepository;
 import ua.in.zloch.core.repository.CrimeRepository;
 import ua.in.zloch.core.repository.RegionRepository;
 
-import javax.persistence.Tuple;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -131,30 +130,6 @@ public class CrimeRepositoryImplTest {
     }
 
     @Test
-    public void testSearchFilteredByRegions() {
-        // Given
-        Region district1 = createRegion(123l);
-        Region district2 = createRegion(456l);
-        Region district3 = createRegion(789l);
-
-        new CrimeBuilder().withRegion(district1).save();
-        new CrimeBuilder().withRegion(district2).save();
-        new CrimeBuilder().withRegion(district3).save();
-
-        // When
-        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().withRegions(district1.getKoatuu(),
-                district3.getKoatuu()).build());
-
-        // Then
-        assertNotNull(crimeList);
-        assertEquals(2, crimeList.size());
-
-        Set<Long> crimeCategories = extractRegionKoatuus(crimeList);
-        assertTrue(crimeCategories.contains(123l));
-        assertTrue(crimeCategories.contains(789l));
-    }
-
-    @Test
     public void testSearchCrimesWithDifferentDatesByMultipleParameters() {
         // Given
         Category robbery = createCategory("robbery");
@@ -165,7 +140,6 @@ public class CrimeRepositoryImplTest {
 
         // When
         List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
-                .withRegions(district1.getKoatuu())
                 .withCategories(robbery.getId())
                 .withDateFrom(1200000000)
                 .build());
@@ -175,7 +149,6 @@ public class CrimeRepositoryImplTest {
         assertEquals(1, crimeList.size());
 
         Crime crime = crimeList.get(0);
-        assertEquals(Long.valueOf(123l), crime.getRegion().getKoatuu());
         assertEquals("robbery", crime.getCategory().getTitle());
         //assertEquals(1300000000l, crime.getDate().getTime());
     }
@@ -192,7 +165,6 @@ public class CrimeRepositoryImplTest {
 
         // When
         List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
-                .withRegions(district1.getKoatuu())
                 .withCategories(parking.getId())
                 .withDateFrom(1000000000)
                 .build());
@@ -202,35 +174,7 @@ public class CrimeRepositoryImplTest {
         assertEquals(1, crimeList.size());
 
         Crime crime = crimeList.get(0);
-        assertEquals(Long.valueOf(123l), crime.getRegion().getKoatuu());
         assertEquals("parking", crime.getCategory().getTitle());
-        //assertEquals(1100000000, crime.getDate().getTime());
-    }
-
-    @Test
-    public void testSearchCrimesWithDifferentRegionsByMultipleParameters() {
-        // Given
-        Category robbery = createCategory("robbery");
-        Region district1 = createRegion(123l);
-        new CrimeBuilder().withTimeStamp(1100000000).withCategory(robbery).withRegion(district1).save();
-
-        Region district2 = createRegion(456l);
-        new CrimeBuilder().withTimeStamp(1100000000).withCategory(robbery).withRegion(district2).save();
-
-        // When
-        List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
-                .withRegions(district2.getKoatuu())
-                .withCategories(robbery.getId())
-                .withDateFrom(1000000000)
-                .build());
-
-        // Then
-        assertNotNull(crimeList);
-        assertEquals(1, crimeList.size());
-
-        Crime crime = crimeList.get(0);
-        assertEquals(Long.valueOf(456l), crime.getRegion().getKoatuu());
-        assertEquals("robbery", crime.getCategory().getTitle());
         //assertEquals(1100000000, crime.getDate().getTime());
     }
 
@@ -345,14 +289,6 @@ public class CrimeRepositoryImplTest {
         assertEquals(2, crimeList.size());
     }
 
-    private Set<Long> extractRegionKoatuus(List<Crime> crimeList) {
-        Set<Long> crimeRegions = new HashSet<>();
-        for (Crime crime : crimeList) {
-            crimeRegions.add(crime.getRegion().getKoatuu());
-        }
-        return crimeRegions;
-    }
-
     private Region createRegion(Long koatuu) {
         Region region = new Region();
         region.setKoatuu(koatuu);
@@ -448,11 +384,6 @@ public class CrimeRepositoryImplTest {
 
         public FilterBuilder withCategories(Long... categories) {
             this.filter.setCategories(Arrays.asList(categories));
-            return this;
-        }
-
-        public FilterBuilder withRegions(Long... regions) {
-            this.filter.setRegions(Arrays.asList(regions));
             return this;
         }
 

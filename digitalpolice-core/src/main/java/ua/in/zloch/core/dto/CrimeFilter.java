@@ -4,21 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 public class CrimeFilter {
-    private List<Long> regions;
     private List<Long> categories;
     private Date dateFrom;
     private Date dateTo;
     private Point southWest;
     private Point northEast;
     private int precision;
-
-    public List<Long> getRegions() {
-        return regions;
-    }
-
-    public void setRegions(List<Long> regions) {
-        this.regions = regions;
-    }
 
     public List<Long> getCategories() {
         return categories;
