@@ -7,11 +7,9 @@ import ua.in.zloch.core.dto.CrimeFilter;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by acidum on 6/15/16.
- */
 public class CrimeSearchParamsToCrimeFilterConverterTest {
 
     private CrimeSearchParamsToCrimeFilterConverter converter = new CrimeSearchParamsToCrimeFilterConverter();
@@ -28,7 +26,6 @@ public class CrimeSearchParamsToCrimeFilterConverterTest {
         assertEquals(21.45, crimeFilter.getNorthEast().getLatitude(), 0.0);
         assertEquals(50.73, crimeFilter.getNorthEast().getLongitude(), 0.0);
         assertEquals(Arrays.asList(35l, 17l, 21l), crimeFilter.getCategories());
-        assertEquals(Arrays.asList(2l, 45l, 71l), crimeFilter.getRegions());
     }
 
     private CrimeSearchParameters createCrimeSearchParameters() {
@@ -48,7 +45,6 @@ public class CrimeSearchParamsToCrimeFilterConverterTest {
         params.setDateFrom(1456175351l);
         params.setDateTo(1456175782l);
         params.setCategories(Arrays.asList(35l, 17l, 21l));
-        params.setRegions(Arrays.asList(2l, 45l, 71l));
         return params;
     }
 }

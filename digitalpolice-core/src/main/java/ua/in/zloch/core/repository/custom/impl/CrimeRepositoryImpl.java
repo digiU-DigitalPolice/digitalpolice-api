@@ -6,7 +6,6 @@ import ua.in.zloch.core.entity.Crime;
 import ua.in.zloch.core.repository.custom.CrimeRepositoryCustom;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +36,6 @@ public class CrimeRepositoryImpl
         Expression<String> geohashSub = cb.substring(geohash, 1, filter.getPrecision());
 
         Expression<Long> category = c.get("category");
-        Expression<Long> region = c.get("region");
 
         Predicate latitudeBetween = cb.between(latitude, filter.getSouthWest().getLatitude(), filter.getNorthEast().getLatitude());
         Predicate longitudeBetween = cb.between(longitude, filter.getSouthWest().getLongitude(), filter.getNorthEast().getLongitude());
@@ -64,11 +62,6 @@ public class CrimeRepositoryImpl
             predicateList.add(category.in(filter.getCategories()));
             groupingList.add(category);
             selectionList.add(category.alias("category"));
-        }
-        if (filter.getRegions() != null && filter.getRegions().size() > 0) {
-            predicateList.add(region.in(filter.getRegions()));
-            groupingList.add(region);
-            selectionList.add(region.alias("region"));
         }
 
         query.multiselect(selectionList.toArray(new Selection[selectionList.size()]));

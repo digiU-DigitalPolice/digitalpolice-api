@@ -19,7 +19,6 @@ import ua.in.zloch.api.CityPoliceApplication;
 import ua.in.zloch.api.dto.CrimeListDTO;
 import ua.in.zloch.api.dto.CrimeSearchParameters;
 import ua.in.zloch.api.service.CrimeService;
-import ua.in.zloch.core.dto.CrimeFilter;
 
 import java.io.IOException;
 import java.util.Date;
@@ -79,7 +78,6 @@ public class CrimeControllerDocumentation {
                 .param("dateFrom", "1420070400") // 2015/01/01
                 .param("dateTo", "1451520000") // 2015/12/31
                 .param("categories", "1,2,3")
-                .param("regions", "4610136300,2")
         ).andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(expectedUnfilteredCrimeListJSON(), true))
@@ -93,8 +91,7 @@ public class CrimeControllerDocumentation {
                                 parameterWithName("precision").attributes().description("Обовязковий параметер! Значення приближення на мапі, або порядку групування точок. Від 1 до 12, де 1 - максимальне групування, 12 - жодна точка не групується."),
                                 parameterWithName("dateFrom").attributes().description("Початкова дата, від якої шукати злочини. Формат дати - unixtime в мілісекундах (long, число мілісекунд (!не секунд) з Jan 1, 1970)"),
                                 parameterWithName("dateTo").attributes().description("Кінцева дата, до якої шукати злочини. Формат дати - unixtime в мілісекундах (long, число мілісекунд (!не секунд) з Jan 1, 1970)"),
-                                parameterWithName("categories").description("id категорій до яких відносяться злочини, перелічені через кому"),
-                                parameterWithName("regions").description("koatuu-коди регіонів, у яких відбулись злочини, перелічені через кому")
+                                parameterWithName("categories").description("id категорій до яких відносяться злочини, перелічені через кому")
                         )));
     }
 
