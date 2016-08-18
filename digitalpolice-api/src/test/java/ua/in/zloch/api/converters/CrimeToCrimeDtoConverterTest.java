@@ -31,13 +31,12 @@ public class CrimeToCrimeDtoConverterTest {
         assertArrayEquals(new double[]{4.56, -1.23}, crimeDTO.getGeometry().getCoordinates(), 0.0);
 
         assertNotNull(crimeDTO.getProperties());
-        Map<String, Object> expectedProperties = new HashMap<String, Object>();
+        Map<String, Object> expectedProperties = new HashMap<>();
         expectedProperties.put("id", 123l);
         expectedProperties.put("date", 1456175351l);
         expectedProperties.put("category.id", 394l);
         expectedProperties.put("region.name", "ЗАЛІЗНИЧНИЙ");
         expectedProperties.put("region.koatuu", 4610136300l);
-        expectedProperties.put("count", 2l);
 
         assertEqualsMapEpsilon(expectedProperties, crimeDTO.getProperties());
     }
@@ -61,7 +60,7 @@ public class CrimeToCrimeDtoConverterTest {
     }
 
     private List<Crime> createTestCrimeList(Crime crime) {
-        List<Crime> list = new ArrayList<Crime>();
+        List<Crime> list = new ArrayList<>();
         list.add(crime);
         return list;
     }
@@ -78,7 +77,6 @@ public class CrimeToCrimeDtoConverterTest {
         crime.setDate(new Date(1456175351l));
         crime.setCategory(createTestCategory());
         crime.setRegion(createTestRegion());
-        crime.setCount(2l);
         return crime;
     }
 

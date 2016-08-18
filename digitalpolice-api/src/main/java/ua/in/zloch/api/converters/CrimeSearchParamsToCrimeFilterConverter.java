@@ -14,7 +14,6 @@ public class CrimeSearchParamsToCrimeFilterConverter implements Converter<CrimeS
         filter.setCategories(crimeSearchParameters.getCategories());
         filter.setDateTo(crimeSearchParameters.getDateTo());
         filter.setDateFrom(crimeSearchParameters.getDateFrom());
-        filter.setPrecision(crimeSearchParameters.getPrecision());
         filter.setNorthEast(convertPointParam(crimeSearchParameters.getNorthEast()));
         filter.setSouthWest(convertPointParam(crimeSearchParameters.getSouthWest()));
         return filter;

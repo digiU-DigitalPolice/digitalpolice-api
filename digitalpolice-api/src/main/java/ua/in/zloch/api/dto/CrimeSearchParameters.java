@@ -9,7 +9,6 @@ public class CrimeSearchParameters {
     private Date dateTo;
     private PointParameter southWest;
     private PointParameter northEast;
-    private int precision;
 
     public List<Long> getCategories() {
         return categories;
@@ -49,14 +48,6 @@ public class CrimeSearchParameters {
 
     public void setNorthEast(PointParameter northEast) {
         this.northEast = northEast;
-    }
-
-    public int getPrecision() {
-        return precision;
-    }
-
-    public void setPrecision(int precision) {
-        this.precision = precision;
     }
 
 }
