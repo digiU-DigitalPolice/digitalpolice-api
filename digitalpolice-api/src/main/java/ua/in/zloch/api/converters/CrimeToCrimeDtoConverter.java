@@ -20,13 +20,6 @@ public class CrimeToCrimeDtoConverter implements Converter<List<Crime>, CrimeLis
             if(crime.getCategory() != null){
                 dto.setCategoryId(crime.getCategory().getId());
             }
-            if (crime.getRegion() != null) {
-                dto.setRegionName(crime.getRegion().getName());
-                dto.setRegionKoatuu(crime.getRegion().getKoatuu());
-            } else {
-                dto.setRegionName("undefined");
-                dto.setRegionKoatuu(0l);
-            }
 
             dtoList.addFeature(dto);
         }

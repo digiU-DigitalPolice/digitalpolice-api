@@ -32,10 +32,6 @@ public class CrimeRepositoryImpl
         Predicate latitudeBetween = cb.between(latitude, filter.getSouthWest().getLatitude(), filter.getNorthEast().getLatitude());
         Predicate longitudeBetween = cb.between(longitude, filter.getSouthWest().getLongitude(), filter.getNorthEast().getLongitude());
 
-        List<Selection> selectionList = new ArrayList<>();
-        selectionList.add(latitude.alias("latitude"));
-        selectionList.add(longitude.alias("longitude"));
-
         List<Predicate> predicateList = new ArrayList<>();
         predicateList.add(latitudeBetween);
         predicateList.add(longitudeBetween);
@@ -48,10 +44,8 @@ public class CrimeRepositoryImpl
         }
         if (filter.getCategories() != null && filter.getCategories().size() > 0) {
             predicateList.add(category.in(filter.getCategories()));
-            selectionList.add(category.alias("category"));
         }
 
-        query.multiselect(selectionList.toArray(new Selection[selectionList.size()]));
         query.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
         return em.createQuery(query).getResultList();

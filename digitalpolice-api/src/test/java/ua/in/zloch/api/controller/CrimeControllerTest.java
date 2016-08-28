@@ -77,8 +77,6 @@ public class CrimeControllerTest {
         dto.setId(123l);
         dto.setDate(new Date(1456209116l));
         dto.setCategoryId(8l);
-        dto.setRegionName("ЗАЛІЗНИЧНИЙ");
-        dto.setRegionKoatuu(4610136300l);
         dtoList.addFeature(dto);
 
         CrimeListDTO.CrimeDTO dtoTwo = new CrimeListDTO().new CrimeDTO();
@@ -86,8 +84,6 @@ public class CrimeControllerTest {
         dtoTwo.setId(456l);
         dtoTwo.setDate(new Date(1456209117l));
         dtoTwo.setCategoryId(3l);
-        dtoTwo.setRegionName("undefined");
-        dtoTwo.setRegionKoatuu(0l);
         dtoList.addFeature(dtoTwo);
 
         return dtoList;

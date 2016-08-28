@@ -13,39 +13,9 @@ public class Crime implements Serializable {
     private double longitude;
     @OneToOne
     private Category category;
-    @OneToOne
-    @JoinColumn(name = "koatuu", referencedColumnName = "koatuu")
-    private Region region;
     private Date date;
 
-    public Crime(double latitude, double longitude){
-        this(latitude, longitude, null, null);
-    }
-
-    public Crime(double latitude, double longitude, Category category){
-        this(latitude, longitude, category, null);
-    }
-
-    public Crime(double latitude, double longitude, Region region){
-        this(latitude, longitude, null, region);
-    }
-
-    public Crime(double latitude, double longitude, Category category, Region region){
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.category = category;
-        this.region = region;
-    }
-
     public Crime(){
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 
     public long getId() {

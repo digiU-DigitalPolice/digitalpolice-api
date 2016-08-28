@@ -4,7 +4,6 @@ import org.junit.Test;
 import ua.in.zloch.api.dto.CrimeListDTO;
 import ua.in.zloch.core.entity.Category;
 import ua.in.zloch.core.entity.Crime;
-import ua.in.zloch.core.entity.Region;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -35,8 +34,6 @@ public class CrimeToCrimeDtoConverterTest {
         expectedProperties.put("id", 123l);
         expectedProperties.put("date", 1456175351l);
         expectedProperties.put("category.id", 394l);
-        expectedProperties.put("region.name", "ЗАЛІЗНИЧНИЙ");
-        expectedProperties.put("region.koatuu", 4610136300l);
 
         assertEqualsMapEpsilon(expectedProperties, crimeDTO.getProperties());
     }
@@ -52,7 +49,6 @@ public class CrimeToCrimeDtoConverterTest {
     @Test
     public void testNullRegion() {
         Crime crime = createTestCrime();
-        crime.setRegion(null);
         List<Crime> testCrimeList = createTestCrimeList(crime);
 
         CrimeListDTO crimeListDTO = crimeToCrimeDtoConverter.convert(testCrimeList);
@@ -76,16 +72,7 @@ public class CrimeToCrimeDtoConverterTest {
         crime.setLongitude(4.56);
         crime.setDate(new Date(1456175351l));
         crime.setCategory(createTestCategory());
-        crime.setRegion(createTestRegion());
         return crime;
-    }
-
-    private Region createTestRegion() {
-        Region region = new Region();
-        region.setId(102l);
-        region.setName("ЗАЛІЗНИЧНИЙ");
-        region.setKoatuu(4610136300l);
-        return region;
     }
 
     private Category createTestCategory() {
