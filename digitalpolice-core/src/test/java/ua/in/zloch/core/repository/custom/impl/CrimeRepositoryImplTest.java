@@ -74,6 +74,29 @@ public class CrimeRepositoryImplTest {
     }
 
     @Test
+    public void testCrimeProperties() {
+        // Given
+        Category robbery = createCategory("robbery");
+        Crime testCrime = new CrimeBuilder()
+                .withCategory(robbery)
+                .withLatitude(49.8484259922661d)
+                .withLongitude(24.039148092269897d)
+                .withTimeStamp(1300000001)
+                .save();
+
+        // When
+        List<Crime> crimeList = crimeRepository.search(new FilterBuilder().build());
+
+        // Then
+        Crime foundCrime = crimeList.get(0);
+        assertEquals("robbery", foundCrime.getCategory().getTitle());
+        assertEquals(49.8484259922661d, foundCrime.getLatitude(), 0.0);
+        assertEquals(24.039148092269897d, foundCrime.getLongitude(), 0.0);
+        assertEquals(1300000001, foundCrime.getDate().getTime());
+        assertEquals(testCrime.getId(), foundCrime.getId());
+    }
+
+    @Test
     public void testSearchFilteredByFromDate() {
         // Given
         new CrimeBuilder().withTimeStamp(1100000000).save();
@@ -85,7 +108,7 @@ public class CrimeRepositoryImplTest {
         // Then
         assertNotNull(crimeList);
         assertEquals(1, crimeList.size());
-        // assertEquals(1300000000, crimeList.get(0).getDate().getTime());
+        assertEquals(1300000000, crimeList.get(0).getDate().getTime());
     }
 
     @Test
@@ -100,7 +123,7 @@ public class CrimeRepositoryImplTest {
         // Then
         assertNotNull(crimeList);
         assertEquals(1, crimeList.size());
-        // assertEquals(1100000000l, crimeList.get(0).getDate().getTime());
+        assertEquals(1100000000l, crimeList.get(0).getDate().getTime());
     }
 
     @Test
@@ -131,10 +154,9 @@ public class CrimeRepositoryImplTest {
     public void testSearchCrimesWithDifferentDatesByMultipleParameters() {
         // Given
         Category robbery = createCategory("robbery");
-        Region district1 = createRegion(123l);
-        new CrimeBuilder().withTimeStamp(1100000000).withCategory(robbery).withRegion(district1).save();
+        new CrimeBuilder().withTimeStamp(1100000000).withCategory(robbery).save();
 
-        new CrimeBuilder().withTimeStamp(1300000000).withCategory(robbery).withRegion(district1).save();
+        new CrimeBuilder().withTimeStamp(1300000000).withCategory(robbery).save();
 
         // When
         List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
@@ -148,18 +170,17 @@ public class CrimeRepositoryImplTest {
 
         Crime crime = crimeList.get(0);
         assertEquals("robbery", crime.getCategory().getTitle());
-        //assertEquals(1300000000l, crime.getDate().getTime());
+        assertEquals(1300000000l, crime.getDate().getTime());
     }
 
     @Test
     public void testSearchCrimesWithDifferentCategoriesByMultipleParameters() {
         // Given
         Category robbery = createCategory("robbery");
-        Region district1 = createRegion(123l);
-        new CrimeBuilder().withTimeStamp(1100000000).withCategory(robbery).withRegion(district1).save();
+        new CrimeBuilder().withTimeStamp(1100000000).withCategory(robbery).save();
 
         Category parking = createCategory("parking");
-        new CrimeBuilder().withTimeStamp(1100000000).withCategory(parking).withRegion(district1).save();
+        new CrimeBuilder().withTimeStamp(1100000000).withCategory(parking).save();
 
         // When
         List<Crime> crimeList = crimeRepository.search(new FilterBuilder()
@@ -173,7 +194,7 @@ public class CrimeRepositoryImplTest {
 
         Crime crime = crimeList.get(0);
         assertEquals("parking", crime.getCategory().getTitle());
-        //assertEquals(1100000000, crime.getDate().getTime());
+        assertEquals(1100000000, crime.getDate().getTime());
     }
 
     @Test
@@ -247,11 +268,6 @@ public class CrimeRepositoryImplTest {
             return this;
         }
 
-        public CrimeBuilder withRegion(Region region) {
-            this.crime.setRegion(region);
-            return this;
-        }
-
         public CrimeBuilder withLatitude(double latitude) {
             this.crime.setLatitude(latitude);
             return this;
@@ -262,8 +278,8 @@ public class CrimeRepositoryImplTest {
             return this;
         }
 
-        public void save() {
-            crimeRepository.save(this.crime);
+        public Crime save() {
+            return crimeRepository.save(this.crime);
         }
     }
 
